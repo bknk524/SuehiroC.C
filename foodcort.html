@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>末広食堂 | メニュー紹介</title>
+  <link rel="icon" href="rogo3.ico">
+  <link rel="stylesheet" href="foodcort.css" />
+</head>
+<body>
+
+  <!-- ヘッダー -->
+ <header class="site-header" role="banner">
+  <div class="container header-inner">
+
+    <!-- ロゴ -->
+      <a href="index.html" class="brand">
+        <img src="image/rogo2.png" alt="末広カントリークラブ ロゴ" class="brand-rogo">
+        <span class="brand-name">
+          <span class="pc-name">末広カントリークラブ</span>
+          <span class="sp-name">末広C.C</span>
+        </span>
+      </a>
+
+    <!-- SNSリンク（右上配置） -->
+    <div class="sns-links">
+      <a href="https://x.com/suehiro_cc" target="_blank" aria-label="公式X（旧Twitter）へ">
+        <img src="image/X_logo.svg" alt="X" loading="lazy">
+      </a>
+      <a href="https://www.instagram.com/suehiro.golf?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        target="_blank" aria-label="Instagramへ">
+        <img src="image/Instagram_logo.png" alt="Instagram" loading="lazy">
+      </a>
+    </div>
+
+    <!-- メニュー開閉スイッチ -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="メニューを開閉">
+    <label class="hamburger" for="nav-toggle" aria-controls="site-nav" aria-expanded="false">
+      <span></span>
+    </label>
+
+    <!-- ナビゲーション -->
+    <nav id="site-nav" class="site-nav" role="navigation" aria-label="メインメニュー">
+      <ul>
+        <li><a href="index.html#home">ホーム</a></li>
+        <li><a href="index.html#price-general">料金</a></li>
+        <li><a href="index.html#course">コース</a></li>
+        <li><a href="index.html#facilities">施設</a></li>
+        <li><a href="index.html#access">アクセス</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <!-- メインビジュアル -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>末広食堂のご案内</h1>
+      <p>プレーの合間に、心もお腹も満たされるお食事を。</p>
+    </div>
+  </section>
+
+  <!-- 写真付きおすすめメニュー -->
+  <section class="featured">
+    <h2>おすすめメニュー</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img src="foodimage/ramen.webp" alt="ラーメン">
+        <h3>ラーメン</h3>
+        <p>昔ながらの優しい味わい。</p>
+        <span class="price">¥650</span>
+      </div>
+
+      <div class="menu-card">
+        <img src="foodimage/udon.webp" alt="うどん">
+        <h3>うどん</h3>
+        <p>温でも冷でも<br>お出汁の香りが広がります。</p>
+        <span class="price">¥600</span>
+      </div>
+
+      <div class="menu-card">
+        <img src="foodimage/curry.webp" alt="カレーライス">
+        <h3>カレーライス</h3>
+        <p>ゴルフの疲れを癒す<br>スパイスの香り。</p>
+        <span class="price">¥700</span>
+      </div>
+
+      <div class="menu-card">
+        <img src="foodimage/gyudon.webp" alt="牛丼">
+        <h3>牛丼</h3>
+        <p>甘辛タレがご飯にしみる逸品。</p>
+        <span class="price">¥900</span>
+      </div>
+
+      <div class="menu-card">
+        <img src="foodimage/charshudon.webp" alt="チャーシュー丼">
+        <h3>チャーシュー丼</h3>
+        <p>肉厚チャーシューを<br>贅沢にのせて。</p>
+        <span class="price">¥900</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- メニュー表画像 -->
+  <section class="menu-image-section">
+    <h2>メニュー一覧</h2>
+    <div class="menu-image-wrap">
+      <img src="foodimage/foodcortmenu.webp" alt="末広食堂の全メニュー表" loading="lazy" decoding="async">
+    </div>
+  </section>
+
+  <!-- 全メニュー一覧 -->
+  <!-- <section class="menu-list-section">
+    <h2>メニュー一覧</h2>
+    <table class="menu-table">
+      <thead>
+        <tr><th>メニュー名</th><th>価格（税込）</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>ラーメン</td><td>¥650</td></tr>
+        <tr><td>大ラーメン</td><td>¥700</td></tr>
+        <tr><td>チャーシュー麺</td><td>¥900</td></tr>
+        <tr><td>大チャーシュー麺</td><td>¥1,000</td></tr>
+        <tr><td>ざるそば</td><td>¥600</td></tr>
+        <tr><td>大ざるそば</td><td>¥700</td></tr>
+        <tr><td>山菜そば/うどん</td><td>¥700</td></tr>
+        <tr><td>大山菜そば/うどん</td><td>¥800</td></tr>
+        <tr><td>うどん（温/冷）</td><td>¥600</td></tr>
+        <tr><td>大うどん（温/冷）</td><td>¥700</td></tr>
+        <tr><td>カレーうどん</td><td>¥700</td></tr>
+        <tr><td>ペヤングやきそば</td><td>¥400</td></tr>
+        <tr><td>カレーライス</td><td>¥700</td></tr>
+        <tr><td>大カレーライス</td><td>¥800</td></tr>
+        <tr><td>牛丼</td><td>¥900</td></tr>
+        <tr><td>チャーシュー丼</td><td>¥900</td></tr>
+        <tr><td>ライス</td><td>¥350</td></tr>
+        <tr><td>瓶ビール</td><td>¥600</td></tr>
+        <tr><td>缶ビール</td><td>¥350</td></tr>
+        <tr><td>ノンアルコールビール</td><td>¥350</td></tr>
+        <tr><td>日本酒</td><td>¥400</td></tr>
+        <tr><td>コーヒー</td><td>¥400</td></tr>
+        <tr><td>ペットボトル</td><td>¥200</td></tr>
+      </tbody>
+    </table>
+  </section> -->
+
+    <!-- 戻る -->
+    <div class="back">
+      <a href="index.html" class="btn back-btn">メインページへ</a>
+    </div>
+
+  <!-- フッター -->
+  <footer class="site-footer">
+    <small>© <span id="year"></span> 末広カントリークラブ</small>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>

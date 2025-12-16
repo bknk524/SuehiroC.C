@@ -1,0 +1,481 @@
+/* ============================================
+   食堂ページ全体
+   ============================================ */
+body {
+  font-family: "Cormorant Garamond", "Noto Sans JP", serif;
+  margin: 0;
+  background-color: #fff;
+  color: #333;
+}
+
+
+/* =====================================================
+   ヘッダーエリア
+===================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  position: relative;
+}
+
+/* --- ブランド --- */
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #2e7d32;
+  gap: 0.6rem;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+.brand:hover { opacity: 0.8; }
+
+.brand-rogo { width: 48px; height: auto; }
+.brand-name {
+  font-family: "Cormorant Garamond", "Noto Sans JP", serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+/* PCではフル表記のみ表示 */
+.pc-name { display: inline; }
+.sp-name { display: none; }
+
+/* モバイルでは短縮表記のみ表示 */
+@media (max-width: 852px) {
+  .pc-name { display: none; }
+  .sp-name { display: inline; }
+}
+
+/* --- SNSリンク --- */
+.sns-links {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: auto;
+}
+.sns-links a img {
+  width: 26px;
+  height: 26px;
+  transition: transform 0.25s ease;
+}
+.sns-links a:hover img { transform: scale(1.1); }
+
+/* =====================================================
+   PCナビゲーション
+===================================================== */
+@media (min-width: 853px) {
+  .site-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .site-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .site-nav a {
+    text-decoration: none;
+    color: #2e7d32;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.25s ease;
+  }
+
+  .site-nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #45b94f;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .site-nav a:hover { color: #45b94f; }
+  .site-nav a:hover::after { width: 60%; }
+
+  .sns-links {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* PCではハンバーガー完全非表示 */
+  .nav-toggle, .hamburger {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+
+/* ============================================
+   モバイル対応
+ ============================================ */
+@media (max-width: 852px) {
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0.5rem 1rem;
+  }
+
+  /* 🌿 ロゴ側 */
+  .brand {
+    display: flex;
+    align-items: center;
+    margin-left: 0.4rem;
+  }
+
+  .brand-rogo {
+    width: 42px;
+    height: auto;
+  }
+
+  .brand-name {
+    font-size: 1.8rem;
+    margin-left: 0.2rem;
+  }
+
+  /*  SNSリンク：ハンバーガーの左側に追従配置 */
+  .sns-links {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    position: relative;
+    right: 0; /* 初期位置リセット */
+    margin-right: 0.8rem; /* ← ハンバーガーと少し空ける距離 */
+    order: 2; /* ← ハンバーガーの直前に来るように */
+  }
+
+  .sns-links a img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.25s ease;
+  }
+
+  .sns-links a:hover img {
+    transform: scale(1.1);
+  }
+
+  /*  ハンバーガーアイコン */
+  .hamburger {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 1001;
+    flex-shrink: 0;
+    order: 3; /* ← SNSの右側に固定 */
+  }
+
+  .hamburger::before,
+  .hamburger::after,
+  .hamburger span {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2.8px;
+    background-color: #2e7d32;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .hamburger::before { top: 0; }
+  .hamburger span { top: 50%; transform: translateY(-50%); }
+  .hamburger::after { bottom: 0; }
+
+  .nav-toggle {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  #nav-toggle:checked + .hamburger::before {
+    transform: rotate(45deg);
+    top: 9px;
+  }
+  #nav-toggle:checked + .hamburger::after {
+    transform: rotate(-45deg);
+    bottom: 9px;
+  }
+  #nav-toggle:checked + .hamburger span { opacity: 0; }
+
+  /*  ナビゲーション本体 */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 33vh;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #dce7dc;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #nav-toggle:checked ~ .site-nav {
+    transform: translateY(0);
+  }
+
+  .site-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .site-nav a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #2e7d32;
+  }
+
+  .site-nav a:hover { color: #45b94f; }
+}
+/* ヒーロー部分 */
+.hero {
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.4)
+    ),url(foodimage/foodcort2.webp) center/cover no-repeat;
+  color: #2e7d32;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  padding: 5rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+/* 写真付きおすすめメニュー */
+.featured {
+  background: #ffffff;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.menu-card {
+  background: #f7faf7;
+  border: 1.5px solid #cde3cd;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+}
+
+.menu-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.menu-card h3 {
+  color: #2e7d32;
+  margin: 0.5rem 0;
+}
+
+.menu-card p {
+  font-size: 0.9rem;
+  margin: 0 1rem;
+  color: #333;
+}
+
+.menu-card .price {
+  display: block;
+  font-weight: bold;
+  margin: 0.5rem 0 1rem;
+  color: #1b5e20;
+}
+
+/* =====================================================
+   メニュー表セクション
+===================================================== */
+.menu-image-section {
+  background: #f6f7ef; /* 優しい生成り背景 */
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+/* 見出し */
+.menu-image-section h2 {
+  font-size: clamp(1.6rem, 1.4vw + 1rem, 2.4rem);
+  color: #2e7d32;
+  text-align: left;
+  border-left: 6px solid #45b94f;
+  padding-left: 0.75rem;
+  background: linear-gradient(90deg, rgba(69,185,79,.08), transparent 60%);
+  margin: 0 auto 2rem;
+  max-width: 900px;
+}
+
+/* 画像コンテナ */
+.menu-image-wrap {
+  max-width: 900px;      /* PCでの最大サイズ */
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(69,185,79,0.15);
+}
+
+/* メニュー表画像 */
+.menu-image-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;   /* 縦横比を維持 */
+  aspect-ratio: 3 / 4;   /* 実際の画像縦長比率に合わせて調整 */
+  transition: transform 0.3s ease;
+}
+
+/* ホバー時に軽く拡大（PCのみ） */
+@media (hover: hover) {
+  .menu-image-wrap img:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* スマホ調整 */
+@media (max-width: 768px) {
+  .menu-image-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .menu-image-section h2 {
+    font-size: 1.4rem;
+    text-align: center;
+    border-left: none;
+    background: none;
+  }
+
+  .menu-image-wrap {
+    border-radius: 8px;
+  }
+
+  .menu-image-wrap img {
+    aspect-ratio: auto; /* 画面幅いっぱいに自然表示 */
+  }
+}
+
+
+
+/* メニュー一覧テーブル */
+/* .menu-list-section {
+  background: #f7faf7;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.menu-table {
+  width: 90%;
+  max-width: 700px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.menu-table th, .menu-table td {
+  border: 1px solid #000000;
+  padding: 0.75rem;
+}
+
+.menu-table th {
+  background: #2e7d32;
+  color: #fff;
+  font-weight: 600;
+}
+
+.menu-table td {
+  text-align: center;
+} */
+
+.back {
+  text-align: center;
+  margin: 2rem 0 3rem;
+}
+
+.back-btn {
+  display: inline-block;
+  background: #2e7d32;
+  color: #fff;
+  padding: 0.9rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #45b94f;
+  transform: translateY(-2px);
+}
+
+/* フッター */
+.site-footer {
+  background: #2e7d32;
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+}
+

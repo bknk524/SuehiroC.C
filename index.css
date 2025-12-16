@@ -1,0 +1,1161 @@
+/* =====================================================
+   基本設定
+===================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  background-color: #e4ddb0;
+  color: #1c1d1f;
+}
+
+/* =====================================================
+   ヘッダーエリア
+===================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  position: relative;
+}
+
+/* --- ブランド --- */
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #2e7d32;
+  gap: 0.6rem;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+.brand:hover { opacity: 0.8; }
+
+.brand-rogo { width: 48px; height: auto; }
+.brand-name {
+  font-family: "Cormorant Garamond", "Noto Sans JP", serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+/* PCではフル表記のみ表示 */
+.pc-name { display: inline; }
+.sp-name { display: none; }
+
+/* モバイルでは短縮表記のみ表示 */
+@media (max-width: 852px) {
+  .pc-name { display: none; }
+  .sp-name { display: inline; }
+}
+
+/* --- SNSリンク --- */
+.sns-links {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-left: auto;
+}
+.sns-links a img {
+  width: 26px;
+  height: 26px;
+  transition: transform 0.25s ease;
+}
+.sns-links a:hover img { transform: scale(1.1); }
+
+/* =====================================================
+   PCナビゲーション
+===================================================== */
+@media (min-width: 853px) {
+  .site-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .site-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .site-nav a {
+    text-decoration: none;
+    color: #2e7d32;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.25s ease;
+  }
+
+  .site-nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #45b94f;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .site-nav a:hover { color: #45b94f; }
+  .site-nav a:hover::after { width: 60%; }
+
+  .sns-links {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* PCではハンバーガー完全非表示 */
+  .nav-toggle, .hamburger {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
+
+/* ============================================
+   モバイル対応
+ ============================================ */
+@media (max-width: 852px) {
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0.5rem 1rem;
+  }
+
+  /* ロゴ側 */
+  .brand {
+    display: flex;
+    align-items: center;
+    margin-left: 0.4rem;
+  }
+
+  .brand-rogo {
+    width: 42px;
+    height: auto;
+  }
+
+  .brand-name {
+    font-size: 1.8rem;
+    margin-left: 0.2rem;
+  }
+
+  /*  SNSリンク：ハンバーガーの左側に追従配置 */
+  .sns-links {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    position: relative;
+    right: 0; /* 初期位置リセット */
+    margin-right: 0.8rem; /* ← ハンバーガーと少し空ける距離 */
+    order: 2; /* ← ハンバーガーの直前に来るように */
+  }
+
+  .sns-links a img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.25s ease;
+  }
+
+  .sns-links a:hover img {
+    transform: scale(1.1);
+  }
+
+  /*  ハンバーガーアイコン */
+  .hamburger {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 1001;
+    flex-shrink: 0;
+    order: 3; /* ← SNSの右側に固定 */
+  }
+
+  .hamburger::before,
+  .hamburger::after,
+  .hamburger span {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2.8px;
+    background-color: #2e7d32;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .hamburger::before { top: 0; }
+  .hamburger span { top: 50%; transform: translateY(-50%); }
+  .hamburger::after { bottom: 0; }
+
+  .nav-toggle {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  #nav-toggle:checked + .hamburger::before {
+    transform: rotate(45deg);
+    top: 9px;
+  }
+  #nav-toggle:checked + .hamburger::after {
+    transform: rotate(-45deg);
+    bottom: 9px;
+  }
+  #nav-toggle:checked + .hamburger span { opacity: 0; }
+
+  /*  ナビゲーション本体 */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 33vh;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #dce7dc;
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #nav-toggle:checked ~ .site-nav {
+    transform: translateY(0);
+  }
+
+  .site-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .site-nav a {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #2e7d32;
+  }
+
+  .site-nav a:hover { color: #45b94f; }
+}
+
+/* =====================================================
+  見出しセクション（メインビジュアル）
+===================================================== */
+.midasiSection {
+  position: relative;
+  width: 100%;
+  min-height: 60vh; /* 高解像度でも高さを維持 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* 背景設定：ワイド対応 */
+  background-image: linear-gradient(
+      rgba(255,255,255,0.25),
+      rgba(255,255,255,0.4)
+    ),
+    url("image/relese-3.webp");
+  background-repeat: no-repeat;
+  background-position: center center; /* 中央基準で常に整列 */
+  background-size: cover; /* ワイドでも縦長でも自然に調整 */
+  background-attachment: fixed; /* PC時はパララックス的固定（任意） */
+
+  color: #1b3b17;
+  padding: clamp(3rem, 5vw, 6rem) 1rem; /* レスポンシブ余白 */
+}
+
+/* タイトル部分 */
+.midasiSection h1 {
+  font-family: "Cormorant Garamond", "Noto Serif JP", serif;
+  font-size: clamp(1.8rem, 2vw + 1rem, 2.8rem);
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  color: #2e7d32;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+  max-width: 90%;
+}
+
+/* ボタン群 */
+.midasiSection .actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.midasiSection .btn.primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2e7d32;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  min-width: 160px;
+  height: 48px;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+.midasiSection .btn.primary:hover {
+  background-color: #45b94f;
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+  モバイル最適化
+===================================================== */
+@media (max-width: 852px) {
+  .midasiSection {
+    min-height: 45vh; /* モバイルでは少し低めに */
+    background-attachment: scroll; /* 背景固定を解除して滑らかに */
+    padding: 3rem 1rem;
+  }
+
+  .midasiSection h1 {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+  }
+
+  .midasiSection .actions {
+    gap: 0.8rem;
+  }
+
+  .midasiSection .btn.primary {
+    flex: 1 1 45%;
+    font-size: 0.95rem;
+    height: 44px;
+    min-width: 130px;
+  }
+}
+
+/* =====================================================
+   超ワイド画面最適化（例：4Kモニタ）
+===================================================== */
+@media (min-width: 1600px) {
+  .midasiSection {
+    background-size: cover;
+    background-position: center top;
+    min-height: 65vh;
+  }
+  .midasiSection h1 {
+    font-size: 3rem;
+    max-width: 1000px;
+  }
+}
+
+
+/* =====================================================
+   お知らせセクション
+===================================================== */
+.newsSection {
+  background: #e4ddb0;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.newsSection h2 {
+  font-family: "Cormorant Garamond", "Noto Serif JP", serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2e7d32;
+  margin-bottom: 2rem;
+}
+
+/*  リストボックス全体 */
+.news-list {
+  list-style: none;
+  padding: 1.5rem 1.8rem;
+  margin: 0 auto;
+  max-width: 800px;
+  max-height: 1200px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  background: #fff;
+  border: 1.5px solid #000;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  max-height: 200px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+/*  各お知らせ項目 */
+.news-list li {
+  display: grid;
+  grid-template-columns: 120px 1fr; /* ← 日付列を固定幅、内容を可変に */
+  align-items: start;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed #000;
+}
+
+.news-list li:last-child {
+  border-bottom: none;
+}
+
+/* 日付 */
+.news-list time {
+  font-family: "Roboto Mono", monospace;
+  color: #388e3c;
+  font-size: 0.95rem;
+  text-align: right; /* ← 左右をきれいに揃える */
+  padding-right: 0.5rem;
+  white-space: nowrap; /* ← 改行防止 */
+}
+
+/* 内容 */
+.news-list p {
+  color: #333;
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* お知らせ内に差し込む画像の調整 */
+.news-list p img {
+  display: block;          /* テキストの上にきちんと1行分として表示 */
+  max-width: 100%;         /* 内容カラムの幅に収まるように縮小 */
+  height: auto;            /* 縦横比を保持してリサイズ */
+  margin-bottom: 0.4rem;   /* 画像とテキストの間に少し余白 */
+  border-radius: 6px;      /* お好みで角丸。不要なら削ってOK */
+}
+
+/* ---------------------------------------------
+  モバイルレイアウト
+--------------------------------------------- */
+@media (max-width: 852px) {
+  .newsSection {
+    padding: 2rem 1rem;
+  }
+
+  .news-list {
+    padding: 1.2rem;
+    max-height: 360px;
+  }
+
+  .news-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    padding: 0.5rem 0;
+  }
+
+  .news-list time {
+    text-align: left;
+    font-size: 0.9rem;
+    color: #2e7d32;
+  }
+
+  .news-list p {
+    font-size: 0.95rem;
+  }
+
+  .news-list p img {
+    max-width: 100%;
+  }
+}
+
+
+/* =====================================================
+   クーポンボタン
+===================================================== */
+.coupon {
+  text-align: center;
+  margin: 2rem 0 3rem;
+}
+
+.coupon-btn {
+  display: inline-block;
+  background: #2e7d32;
+  color: #fff;
+  padding: 0.9rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.coupon-btn:hover {
+  background: #45b94f;
+  transform: translateY(-2px);
+}
+
+/* モバイル調整 */
+@media (max-width: 768px) {
+  .coupon-btn {
+    padding: 0.8rem 1.6rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* =====================================================
+  一般料金セクション
+===================================================== */
+.price-general {
+  background: #e4ddb0;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.price-general h2 {
+  font-size: clamp(1.6rem, 1.4vw + 1rem, 2.4rem);
+  color: #2e7d32;
+  text-align: left;
+  border-left: 6px solid #45b94f;
+  padding-left: 0.75rem;
+  background: linear-gradient(90deg, rgba(69,185,79,.08), transparent 60%);
+  margin-bottom: 1rem;
+}
+
+.price-general h3 {
+  font-size: 1.3rem;
+  color: #2e7d32;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* テーブル全体 */
+.price-general .table-wrap {
+  background: #fff;
+  border: 1.5px solid #000;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.price-general .table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.price-general th,
+.price-general td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #000;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.price-general thead {
+  background-color: #eaf3ea;
+}
+
+.price-general th {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.price-general td:last-child {
+  text-align: left;
+  line-height: 1.5;
+}
+
+/* モバイル */
+@media (max-width: 768px) {
+  .price-general th,
+  .price-general td {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .price-general h3 {
+    font-size: 1.1rem;
+  }
+
+  .price-general .table-wrap {
+    padding: 1rem;
+  }
+}
+
+
+/* =====================================================
+  学生料金セクション
+===================================================== */
+.price-student {
+  background: #e4ddb0;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+/* 見出し */
+.price-student h3 {
+  font-size: 1.3rem;
+  color: #2e7d32;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+/* テーブル枠 */
+.price-student .table-wrap {
+  background: #fff;
+  border: 1.5px solid #000;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  overflow: hidden; /* PCでは固定 */
+}
+
+/* テーブル本体 */
+.price-student .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.price-student th,
+.price-student td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #000;
+  text-align: center;
+}
+
+.price-student thead {
+  background-color: #eaf3ea;
+}
+
+.price-student th {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.price-student td {
+  font-size: 0.95rem;
+}
+
+/* =====================================================
+  スマホ時：スライド可能＆見やすく調整
+===================================================== */
+@media (max-width: 768px) {
+
+  /* 横スクロール対応 */
+  .price-student .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+  }
+
+  .price-student .table {
+    min-width: 500px; /* 横幅広めでスワイプ表示 */
+    border-collapse: collapse;
+  }
+
+  /* 横詰め＆縦整列 */
+  .price-student th,
+  .price-student td {
+    padding: 0.5rem 0.55rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    border-bottom: 1px solid #000;
+    white-space: nowrap; /* 折り返さずに横スクロール */
+  }
+
+  .price-student tr {
+    height: 2.5rem;
+  }
+
+  /* スクロールバー装飾 */
+  .price-student .table-wrap::-webkit-scrollbar {
+    height: 6px;
+  }
+  .price-student .table-wrap::-webkit-scrollbar-thumb {
+    background: #b6cfae;
+    border-radius: 3px;
+  }
+
+  /* 案内文 */
+  .price-student .table-wrap::after {
+    content: "👉 スワイプで全列を確認できます";
+    display: block;
+    font-size: 0.8rem;
+    color: #000;
+    text-align: right;
+    margin-top: 0.3rem;
+    opacity: 0.8;
+  }
+
+  .price-student h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+/* =====================================================
+  コース紹介セクション
+===================================================== */
+.courseSection {
+  background: #e4ddb0;
+  padding: 3rem 1rem 4rem;
+  text-align: center;
+}
+
+/* 見出し */
+.courseSection h2 {
+  font-size: clamp(1.6rem, 1.4vw + 1rem, 2.4rem);
+  color: #2e7d32;
+  text-align: left;
+  border-left: 6px solid #45b94f;
+  padding-left: 0.75rem;
+  background: linear-gradient(90deg, rgba(69,185,79,.08), transparent 60%);
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   コース概要文
+   -------------------------------------------- */
+.course-intro {
+  color: #353535;
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.course-intro .course-info {
+  display: inline-block;
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #000;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin-bottom: 0.6rem;
+}
+
+/* ============================================
+   コースマップ
+   -------------------------------------------- */
+.course-map {
+  max-width: 900px;
+  margin: 0 auto 2.2rem;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(69,185,79,0.15);
+  position: relative;
+}
+
+.course-map img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 2 / 1; /* 比率統一で崩れ防止 */
+}
+
+/* ============================================
+   コースボタン
+   -------------------------------------------- */
+.course-action {
+  margin: 1.5rem 0;
+}
+
+.course-action .btn.primary {
+  display: inline-block;
+  background: #45b94f;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.course-action .btn.primary:hover {
+  background: #5cd967;
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   ENJOY PAR3案内リンク
+   -------------------------------------------- */
+.what-enjoy-par3 {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.what-enjoy-par3 a {
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: underline;
+  transition: color 0.25s ease;
+}
+
+.what-enjoy-par3 a:hover {
+  color: #45b94f;
+}
+
+/* ============================================
+   モバイル対応
+   -------------------------------------------- */
+@media (max-width: 768px) {
+  .courseSection {
+    padding: 2.5rem 1rem 3rem;
+  }
+
+  .courseSection h2 {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+  }
+
+  .course-intro {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+  }
+
+  .course-intro .course-info {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .course-map {
+    margin-bottom: 1.8rem;
+  }
+
+  .course-action .btn.primary {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .what-enjoy-par3 a {
+    font-size: 0.9rem;
+  }
+}
+
+
+/* ============================================
+   施設紹介
+   ============================================ */
+#facilities {
+  background: #e4ddb0;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+#facilities h2 {
+  font-size: clamp(1.6rem, 1.4vw + 1rem, 2.4rem);
+  color: #2e7d32;
+  margin-bottom: 1rem;
+  text-align: left; /* 文字は左寄せ */
+  border-left: 6px solid #45b94f;
+  padding-left: 0.75rem;
+  background: linear-gradient(90deg, rgba(69,185,79,.08), transparent 60%);
+  margin-left: 0; /* 左端に寄せる */
+  display: block; /* インラインブロックを解除して幅いっぱいに */
+}
+
+/* カード全体レイアウト */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 各カード共通のベース */
+.card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 230px;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 背景にグラデーションで文字を読みやすく */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0));
+  z-index: 0;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* テキスト部分 */
+.card h3,
+.card p,
+.card a {
+  position: relative;
+  z-index: 1;
+}
+
+/* カードごとの背景画像指定 */
+.card:nth-child(1) {
+  background-image: url("image/CC.webp"); /* クラブハウス */
+}
+
+.card:nth-child(2) {
+  background-image: url("image/foodcort.webp"); /* 食堂 */
+}
+
+.card:nth-child(3) {
+  background-image: url("image/practice.webp"); /* 練習場 */
+}
+
+/* 見出し・本文 */
+.card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* リンク */
+.card a {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.25s ease;
+}
+
+.card a:hover {
+  color: #b2ffb2;
+}
+
+/* ============================================
+   モバイル対応
+   ============================================ */
+@media (max-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card {
+    height: 200px;
+    padding: 1rem;
+  }
+
+  .card h3 {
+    font-size: 1.15rem;
+  }
+
+  .card p {
+    font-size: 0.9rem;
+  }
+}
+
+
+
+/* ============================================
+   アクセスセクション（サイズ統一版）
+   ============================================ */
+#access {
+  background: #e4ddb0;
+  padding: 3rem 1rem;
+
+  text-align: center;
+}
+
+#access h2 {
+  font-size: clamp(1.6rem, 1.4vw + 1rem, 2.4rem);
+  color: #2e7d32;
+  margin-bottom: 1rem;
+  text-align: left; /* 文字は左寄せ */
+  border-left: 6px solid #45b94f;
+  padding-left: 0.75rem;
+  background: linear-gradient(90deg, rgba(69,185,79,.08), transparent 60%);
+  margin-left: 0; /* 左端に寄せる */
+  display: block; /* インラインブロックを解除して幅いっぱいに */
+}
+
+/* 2カラム構成（高さ揃え対応） */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: stretch; /* ← 高さをそろえる */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 左：お店情報 */
+.definition {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1.5px solid #cde3cd;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  text-align: left;
+  height: 100%; /* ← グリッド行の高さに合わせる */
+}
+
+.definition div {
+  margin-bottom: 1rem;
+}
+
+.definition dt {
+  font-weight: 600;
+  color: #2e7d32;
+  margin-bottom: 0.2rem;
+}
+
+.definition dd {
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.definition a {
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.definition a:hover {
+  text-decoration: underline;
+}
+
+/* 右：Googleマップ */
+.map-placeholder {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid #cde3cd;
+  height: 100%; /* ← 左と同じ高さに */
+  display: flex;
+}
+
+.map-placeholder iframe {
+  width: 100%;
+  height: auto;
+  flex: 1; /* ← 枠いっぱいに広がる */
+  border: 0;
+  border-radius: 10px;
+}
+
+/* ============================================
+   モバイル対応（縦並び）
+   ============================================ */
+@media (max-width: 852px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .definition,
+  .map-placeholder {
+    height: auto;
+  }
+
+  .map-placeholder iframe {
+    height: 260px;
+  }
+}
+
+/* ============================================
+   フッター
+   --------------------------------------------
+   ・全体を落ち着いたグリーン系でまとめる
+   ・中央揃え＆少し余白をとって上品に
+   ============================================ */
+.site-footer {
+  background: #2e7d32; /* 深い芝生グリーン */
+  color: #ffffff;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* コピーライト文字 */
+.site-footer small {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+/* 年号の部分 */
+#year {
+  font-weight: 600;
+}
+
+/* ============================================
+   モバイル対応
+   --------------------------------------------
+   ・文字サイズをわずかに調整
+   ============================================ */
+@media (max-width: 768px) {
+  .site-footer small {
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,149 @@
+/* ============================================
+   ベース
+============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", system-ui,
+    -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #e4ddb0;            /* 既存サイトと同じ淡いグリーン */
+  color: #1c1d1f;
+}
+
+/* ============================================
+   メインラッパー
+============================================ */
+.ny {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem 3.5rem;
+}
+
+/* ============================================
+   見出し
+============================================ */
+.ny__head {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.ny__head h1 {
+  font-size: clamp(1.8rem, 2.2vw + 1rem, 2.4rem);
+  color: #2e7d32;
+  margin-bottom: 0.8rem;
+}
+
+.ny__lead {
+  font-size: 0.98rem;
+  color: #333;
+}
+
+/* ============================================
+   画像ギャラリー
+============================================ */
+.ny__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+/* カード全体：中央に白い箱で浮かせる */
+.ny-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  max-width: 900px;              /* 画像の最大幅 */
+  width: min(94vw, 900px);       /* 画面幅に応じて大きく見せる */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+/* 画像：比率はそのまま、なるべく大きく */
+.ny-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* キャプション */
+.ny-card figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+/* ============================================
+   戻るボタン
+============================================ */
+.back {
+  text-align: center;
+  margin: 2.5rem 0 0;
+}
+
+.btn.back-btn {
+  display: inline-block;
+  background: #2e7d32;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: 0.03em;
+  transition: background 0.25s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn.back-btn:hover {
+  background: #45b94f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* ============================================
+   フッター
+============================================ */
+.site-footer {
+  background: #2e7d32;
+  color: #ffffff;
+  text-align: center;
+  padding: 1.4rem 0;
+  border-top: 3px solid #cde3cd;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-footer small {
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+/* 少しだけモバイル寄せ調整 */
+@media (max-width: 600px) {
+  .ny {
+    padding: 2rem 0.6rem 3rem;
+  }
+
+  .ny-card {
+    padding: 1rem 0.9rem;
+    border-radius: 12px;
+  }
+
+  .ny-card img {
+    border-radius: 10px;
+  }
+
+  .ny__head h1 {
+    font-size: 1.7rem;
+  }
+}

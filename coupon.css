@@ -1,0 +1,163 @@
+/* === 全体基本設定 === */
+body {
+  margin: 0;
+  font-family: "Noto Sans JP", "Yu Gothic UI", sans-serif;
+  color: #162016;
+  background: linear-gradient(180deg, #e4f5e4 0%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* === コンテンツ中央寄せ === */
+main.coupon {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* === 見出し === */
+.coupon-header h1 {
+  font-size: 2rem;
+  color: #2f7d32;
+  margin-bottom: 0.5rem;
+}
+.coupon-header h2 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+/* === チケットエリア === */
+.ticket {
+  background: #fff;
+  border: 2px dashed #45b94f;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 320px;
+  width: 90%;
+}
+
+/* === クーポン画像 === */
+.coupon-img {
+  width: 100%;
+  max-width: 340px;
+  border: 1px solid #ccc;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+
+/* === ボタン === */
+.btn {
+  display: inline-block;
+  background-color: #45b94f;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn:hover {
+  background-color: #2f7d32;
+  transform: translateY(-2px);
+}
+@media print {
+  .antiprinto{
+    display: none;
+  }
+}
+/* ============================================
+   🎟 印刷ボタンデザイン
+   ============================================ */
+.print-btn {
+  display: inline-block;
+  background: #45b94f; /* 鮮やかなグリーン */
+  color: #fff;
+  font-weight: 600;
+  padding: 0.8rem 1.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: none;
+  cursor: pointer;
+  margin: 1rem auto;
+  font-size: 1rem;
+}
+
+.print-btn:hover {
+  background: #2e7d32; /* 濃い緑に変化 */
+  transform: translateY(-2px);
+}
+
+/* スマホ時にボタン幅を広げてタップしやすく */
+@media (max-width: 768px) {
+  .print-btn {
+    width: 90%;
+    font-size: 1.05rem;
+  }
+}
+
+/* 印刷時に不要な要素を隠す */
+@media print {
+  .btn.back-btn,
+  .site-footer {
+    display: none !important;
+  }
+}
+
+
+/* 戻るボタン専用 */
+.back-btn {
+  margin-top: 1rem;
+}
+
+/* ============================================
+   フッター
+   --------------------------------------------
+   ・全体を落ち着いたグリーン系でまとめる
+   ・中央揃え＆少し余白をとって上品に
+   ============================================ */
+.site-footer {
+  background: #2e7d32; /* 深い芝生グリーン */
+  color: #ffffff;
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 3px solid #cde3cd; /* やわらかな緑で上のライン */
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* コピーライト文字 */
+.site-footer small {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+/* 年号の部分 */
+#year {
+  font-weight: 600;
+}
+
+/* ============================================
+   モバイル対応
+   --------------------------------------------
+   ・文字サイズをわずかに調整
+   ============================================ */
+@media (max-width: 768px) {
+  .site-footer small {
+    font-size: 0.85rem;
+  }
+}

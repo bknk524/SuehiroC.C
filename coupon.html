@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEB限定クーポン | 末広カントリークラブ</title>
+  <meta name="description" content="末広ゴルフ場のWEBクーポンページ。この画面を受付にご提示ください。">
+  <link rel="icon" href="rogo3.ico">
+  <link rel="stylesheet" href="coupon.css">
+</head>
+
+<body>
+  <main class="coupon">
+    <section class="coupon-header">
+      <h1>WEBクーポン</h1>
+      <h2><u>この<strong>画面</strong></u>または､<u>印刷したものを</u><br>受付に提示してください</h2>
+    </section>
+
+    <div class="ticket">
+      <img src="couponImage/Webcoupon.webp" alt="末広ゴルフ場Webクーポン" class="coupon-img">
+      <div class="antiprinto">
+        <!-- 印刷ボタン -->
+        <button class="btn print-btn" onclick="window.print()">クーポンを印刷する</button>
+        <!-- 戻る -->
+        <a href="index.html" class="btn back-btn">トップページへ戻る</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- フッター -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <small>© <span id="year"></span> 末広カントリークラブ</small>
+    </div>
+  </footer>
+
+  <script>
+    // 年号を自動更新
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
