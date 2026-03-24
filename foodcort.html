@@ -24,18 +24,18 @@
 
     <!-- SNSリンク（右上配置） -->
     <div class="sns-links">
-      <a href="https://x.com/suehiro_cc" target="_blank" aria-label="公式X（旧Twitter）へ">
+      <a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer" aria-label="公式X（旧Twitter）へ">
         <img src="image/X_logo.svg" alt="X" loading="lazy">
       </a>
       <a href="https://www.instagram.com/suehiro.golf?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-        target="_blank" aria-label="Instagramへ">
+        target="_blank" rel="noopener noreferrer" aria-label="Instagramへ">
         <img src="image/Instagram_logo.png" alt="Instagram" loading="lazy">
       </a>
     </div>
 
     <!-- メニュー開閉スイッチ -->
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="メニューを開閉">
-    <label class="hamburger" for="nav-toggle" aria-controls="site-nav" aria-expanded="false">
+    <label class="hamburger" for="nav-toggle" role="button" tabindex="0" aria-controls="site-nav" aria-expanded="false">
       <span></span>
     </label>
 
@@ -51,7 +51,7 @@
     </nav>
   </div>
 </header>
-
+  <main id="main">
   <!-- メインビジュアル -->
   <section class="hero">
     <div class="hero-inner">
@@ -65,35 +65,35 @@
     <h2>おすすめメニュー</h2>
     <div class="menu-grid">
       <div class="menu-card">
-        <img src="foodimage/ramen.webp" alt="ラーメン">
+        <img src="foodimage/ramen.webp" alt="ラーメン" loading="lazy" decoding="async">
         <h3>ラーメン</h3>
         <p>昔ながらの優しい味わい。</p>
         <span class="price">¥650</span>
       </div>
 
       <div class="menu-card">
-        <img src="foodimage/udon.webp" alt="うどん">
+        <img src="foodimage/udon.webp" alt="うどん" loading="lazy" decoding="async">
         <h3>うどん</h3>
         <p>温でも冷でも<br>お出汁の香りが広がります。</p>
         <span class="price">¥600</span>
       </div>
 
       <div class="menu-card">
-        <img src="foodimage/curry.webp" alt="カレーライス">
+        <img src="foodimage/curry.webp" alt="カレーライス" loading="lazy" decoding="async">
         <h3>カレーライス</h3>
         <p>ゴルフの疲れを癒す<br>スパイスの香り。</p>
         <span class="price">¥700</span>
       </div>
 
       <div class="menu-card">
-        <img src="foodimage/gyudon.webp" alt="牛丼">
+        <img src="foodimage/gyudon.webp" alt="牛丼" loading="lazy" decoding="async">
         <h3>牛丼</h3>
         <p>甘辛タレがご飯にしみる逸品。</p>
         <span class="price">¥900</span>
       </div>
 
       <div class="menu-card">
-        <img src="foodimage/charshudon.webp" alt="チャーシュー丼">
+        <img src="foodimage/charshudon.webp" alt="チャーシュー丼" loading="lazy" decoding="async">
         <h3>チャーシュー丼</h3>
         <p>肉厚チャーシューを<br>贅沢にのせて。</p>
         <span class="price">¥900</span>
@@ -148,6 +148,7 @@
     <div class="back">
       <a href="index.html" class="btn back-btn">メインページへ</a>
     </div>
+  </main>
 
   <!-- フッター -->
   <footer class="site-footer">
@@ -155,6 +156,32 @@
   </footer>
 
   <script>
+    const navToggle = document.getElementById("nav-toggle");
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelectorAll(".site-nav a");
+
+    if (navToggle && hamburger) {
+      const syncNavState = () => {
+        hamburger.setAttribute("aria-expanded", navToggle.checked ? "true" : "false");
+      };
+
+      navToggle.addEventListener("change", syncNavState);
+      hamburger.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          navToggle.checked = !navToggle.checked;
+          syncNavState();
+        }
+      });
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          navToggle.checked = false;
+          syncNavState();
+        });
+      });
+      syncNavState();
+    }
+
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 

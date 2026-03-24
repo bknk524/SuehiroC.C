@@ -10,9 +10,11 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="末広カントリークラブ | ホーム">
   <meta property="og:description" content="コース案内、料金、施設情報、アクセスはこちら。">
-  <meta property="og:image" content="image\relese-3.jpg">
+  <meta property="og:image" content="image/relese-3.webp">
   <meta property="og:locale" content="ja_JP">
   <link rel="icon" href="rogo2.ico">
+  <link rel="preload" as="image" href="image/relese-3.webp">
+  <link rel="preconnect" href="https://platform.twitter.com">
   <link rel="stylesheet" href="index.css">
 </head>
 
@@ -32,18 +34,18 @@
 
       <!-- SNSリンク（右上配置） -->
       <div class="sns-links">
-        <a href="https://x.com/suehiro_cc" target="_blank" aria-label="公式X（旧Twitter）へ">
+        <a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer" aria-label="公式X（旧Twitter）へ">
           <img src="image/X_logo.svg" alt="X" loading="lazy">
         </a>
         <a href="https://www.instagram.com/suehiro.golf?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-          target="_blank" aria-label="Instagramへ">
+          target="_blank" rel="noopener noreferrer" aria-label="Instagramへ">
           <img src="image/Instagram_logo.png" alt="Instagram" loading="lazy">
         </a>
       </div>
 
       <!-- メニュー開閉スイッチ -->
       <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="メニューを開閉">
-      <label class="hamburger" for="nav-toggle" aria-controls="site-nav" aria-expanded="false">
+      <label class="hamburger" for="nav-toggle" role="button" tabindex="0" aria-controls="site-nav" aria-expanded="false">
         <span></span>
       </label>
 
@@ -82,26 +84,58 @@
     <section class="newsSection" aria-label="お知らせ">
       <div class="container">
         <h2>お知らせ</h2>
-        <ul class="news-list">
-          <li>
-            <time datetime="2025-11-01">2025/11/01</time>
-            <p>HP更新しました</p>
-          </li>
-          <li>
-            <time datetime="2025-11-01">2025/11/01</time>
-            <p>薄暮は11月1日より<br>14時からとなります<br>※冬季は14時受付(11/1~2/28)</p>
-          </li>
-          <li>
-            <time datetime="2025-12-01">2025/12/01</time>
-            <p><img src="osirase/in-003-01.jpg" alt="">
-              <a href="osirase.html">年末年始は営業時間を変更します<br>詳しくはこちらから!</a></p>
-          </li>
-        </ul>
+        <!-- 大画面では「お知らせ」と「公式X」を横並び、小さい画面では縦並びにするラッパー -->
+        <div class="news-layout">
+          <!-- 手入力で管理するお知らせ一覧 -->
+          <section class="news-panel" aria-labelledby="news-heading">
+            <h3 id="news-heading" class="news-panel-title">最新のお知らせ</h3>
+            <ul class="news-list">
+              <li>
+                <time datetime="2025-11-01">2025/11/01</time>
+                <p>HP更新しました</p>
+              </li>
+              <li>
+                <time datetime="2025-11-01">2025/11/01</time>
+                <p>薄暮は11月1日より<br>14時からとなります</p>
+              </li>
+              <!-- <li>
+                <time datetime="2025-12-01">2025/12/01</time>
+                <p><img src="osirase/in-003-01.jpg" alt="">
+                  <a href="osirase.html">年末年始は営業時間を変更します<br>詳しくはこちらから!</a></p>
+              </li> -->
+              <li>
+                <time datetime="2026-01-05">2026/01/05</time>
+                <p><img src="osirase/Nengajou.jpg" alt="" loading="lazy" decoding="async">新年明けましておめでとうございます<br>今年もよろしくお願いします</p>
+              </li>
+              <li>
+                <time datetime="2026-02-08">2026/02/08</time>
+                <p><strong>2月8日の積雪の影響によりアイスバーンと残雪の為明日2月8日は12時からのオープンとなります</strong></p>
+              </li>
+              <li>
+                <time datetime="2026-03-04">2026/03/04</time>
+                <p>薄暮は3月1日より14時30分からとなります</p>
+              </li>
+            </ul>
+          </section>
+
+          <!-- 公式Xの埋め込みタイムライン -->
+          <section class="news-panel x-panel" aria-labelledby="x-heading">
+            <div class="x-panel-head">
+              <h3 id="x-heading" class="news-panel-title">公式X</h3>
+              <a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer" class="x-panel-link">@suehiro_cc</a>
+            </div>
+            <div class="x-timeline-wrap">
+              <!-- widgets.js がこのリンクをタイムライン表示に置き換える -->
+              <a class="twitter-timeline" data-lang="ja" data-dnt="true" data-theme="light" data-height="520"
+                href="https://twitter.com/suehiro_cc">Posts by suehiro_cc</a>
+            </div>
+          </section>
+        </div>
       </div>
     </section>
 
     <script>
-      // ページ読み込み後、一番上にスクロール
+      // 最新のお知らせが下に追加される運用を想定して、初期表示を末尾に合わせる
       window.addEventListener('DOMContentLoaded', () => {
         const newsList = document.querySelector('.news-list');
         if (newsList) {
@@ -144,7 +178,7 @@
                 <th scope="row">薄暮</th>
                 <td>¥1,400</td>
                 <td>¥2,700</td>
-                <td>薄暮は14時から受付開始!<br>お得にゴルフを<br>楽しもう</td>
+                <td>薄暮は14時30分から受付開始!<br>お得にゴルフを<br>楽しもう</td>
               </tr>
               <tr>
                 <th scope="row">おはゴルフ</th>
@@ -284,9 +318,12 @@
             </dl>
           </div>
           <div>
-            <div class="map-placeholder" role="img" aria-label="地図">
+            <div class="map-placeholder">
               <!-- Google Maps等の埋め込み -->
               <iframe
+                title="末広カントリークラブの地図"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3262.087512557805!2d138.92224587576436!3d35.154438172762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60199a5728252f2b%3A0xbb541b44c5382948!2z5pyr5bqD44Kr44Oz44OI44Oq44O844Kv44Op44OW!5e0!3m2!1sja!2sjp!4v1761012588226!5m2!1sja!2sjp"></iframe>
 
             </div>
@@ -305,8 +342,9 @@
           <a class="btn primary" href="tel:055-986-4897" aria-label="電話で問い合わせ 055-986-4897">電話</a>
         </div>
       </div>
-    </section>
-  </main> -->
+    </section> -->
+
+  </main>
 
     <!-- フッター -->
     <footer class="site-footer" role="contentinfo">
@@ -321,14 +359,14 @@
       "@context": "https://schema.org",
       "@type": "SportsActivityLocation",
       "name": "末広カントリークラブ",
-      "image": "image\relese-3.jpg",
+      "image": "image/relese-3.webp",
       "description": "静岡県三島市徳倉にある末広カントリークラブの公式ホームページ。練習場・食堂備えた自然豊かなコースをお楽しみください。",
       "url": "https://suehiro-cc.com/",
       "telephone": "055-986-4897",
       "address": {
       "@type": "PostalAddress",
       "addressCountry": "JP",
-      "postalCode": "411-0043",
+      "postalCode": "411-0044",
       "addressRegion": "静岡県",
       "addressLocality": "三島市徳倉",
       "streetAddress": "1131-9"
@@ -340,7 +378,7 @@
       },
     "amenityFeature": [
       { "@type": "LocationFeatureSpecification", "name": "練習場", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "レストラン", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "レストラン", "value": true }
       ],
     "openingHoursSpecification": [
       {
@@ -357,9 +395,38 @@
 </script>
 
     <script>
-      // 年号を自動更新（JS不要なら削除可）
+      const navToggle = document.getElementById('nav-toggle');
+      const hamburger = document.querySelector('.hamburger');
+      const navLinks = document.querySelectorAll('.site-nav a');
+
+      if (navToggle && hamburger) {
+        // チェック状態と aria-expanded を同期する
+        const syncNavState = () => {
+          hamburger.setAttribute('aria-expanded', navToggle.checked ? 'true' : 'false');
+        };
+
+        navToggle.addEventListener('change', syncNavState);
+        // label ベースのハンバーガーをキーボードでも操作できるようにする
+        hamburger.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            navToggle.checked = !navToggle.checked;
+            syncNavState();
+          }
+        });
+        navLinks.forEach((link) => {
+          link.addEventListener('click', () => {
+            navToggle.checked = false;
+            syncNavState();
+          });
+        });
+        syncNavState();
+      }
+
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>
+    <!-- 公式X埋め込みを描画するスクリプト -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 
 </html>

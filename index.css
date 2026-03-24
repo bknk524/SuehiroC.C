@@ -404,28 +404,108 @@ body {
   margin-bottom: 2rem;
 }
 
-/*  リストボックス全体 */
+/* お知らせ欄とX欄をまとめるレイアウト土台 */
+.news-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* 各パネル共通の見た目 */
+.news-panel {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(46, 125, 50, 0.18);
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* パネル見出し */
+.news-panel-title {
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.15rem;
+  color: #2e7d32;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+/* X欄の見出しとアカウントリンク */
+.x-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.x-panel-link {
+  color: #2e7d32;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.x-panel-link:hover {
+  text-decoration: underline;
+}
+
+/* Xタイムラインを囲む外枠 */
+.x-timeline-wrap {
+  background: #fff;
+  border: 1.5px solid #000;
+  border-radius: 12px;
+  padding: 0.3rem;
+  min-height: clamp(320px, 45vh, 520px);
+  overflow: hidden;
+}
+
+.x-timeline-wrap iframe {
+  border-radius: 10px;
+}
+
+/* 手入力のお知らせ一覧本体 */
 .news-list {
   list-style: none;
   padding: 1.5rem 1.8rem;
-  margin: 0 auto;
-  max-width: 800px;
-  max-height: 1200px;
+  margin: 0;
+  width: 100%;
+
+  /* 高さ：画面に追従（下限〜上限を持たせて安定） */
+  max-height: clamp(320px, 45vh, 520px);
+
   overflow-y: auto;
   scroll-behavior: smooth;
   background: #fff;
   border: 1.5px solid #000;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  max-height: 200px;
-  overflow-y: auto;
-  scroll-behavior: smooth;
 }
 
-/*  各お知らせ項目 */
+/* 大きなモニターでは2カラムで同じ高さに揃える */
+@media (min-width: 1200px) {
+  .news-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .news-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .news-list,
+  .x-timeline-wrap {
+    flex: 1;
+  }
+}
+
+
+/* 各お知らせ項目の行レイアウト */
 .news-list li {
   display: grid;
-  grid-template-columns: 120px 1fr; /* ← 日付列を固定幅、内容を可変に */
+  grid-template-columns: 120px 1fr;
   align-items: start;
   gap: 1rem;
   padding: 0.75rem 0;
@@ -441,9 +521,9 @@ body {
   font-family: "Roboto Mono", monospace;
   color: #388e3c;
   font-size: 0.95rem;
-  text-align: right; /* ← 左右をきれいに揃える */
+  text-align: right;
   padding-right: 0.5rem;
-  white-space: nowrap; /* ← 改行防止 */
+  white-space: nowrap;
 }
 
 /* 内容 */
@@ -455,26 +535,43 @@ body {
   text-align: left;
 }
 
-/* お知らせ内に差し込む画像の調整 */
+/* お知らせ内の画像（全体表示対応） */
 .news-list p img {
-  display: block;          /* テキストの上にきちんと1行分として表示 */
-  max-width: 100%;         /* 内容カラムの幅に収まるように縮小 */
-  height: auto;            /* 縦横比を保持してリサイズ */
-  margin-bottom: 0.4rem;   /* 画像とテキストの間に少し余白 */
-  border-radius: 6px;      /* お好みで角丸。不要なら削ってOK */
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 0.4rem;
+  border-radius: 6px;
 }
 
-/* ---------------------------------------------
-  モバイルレイアウト
---------------------------------------------- */
+/* laptop相当以下は縦並びを基準にして余白も少し詰める */
 @media (max-width: 852px) {
   .newsSection {
     padding: 2rem 1rem;
   }
 
+  .news-panel {
+    padding: 1rem;
+  }
+
+  .news-panel-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .x-panel-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
   .news-list {
     padding: 1.2rem;
-    max-height: 360px;
+    max-height: 360px;        /* ← モバイルも同系統に */
+  }
+
+  .x-timeline-wrap {
+    min-height: 420px;
   }
 
   .news-list li {
@@ -493,10 +590,6 @@ body {
 
   .news-list p {
     font-size: 0.95rem;
-  }
-
-  .news-list p img {
-    max-width: 100%;
   }
 }
 

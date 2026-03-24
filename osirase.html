@@ -20,17 +20,17 @@
   <section class="ny__gallery">
     
     <figure class="ny-card">
-      <img src="osirase/in-003-01.jpg" alt="年末・年始営業時間案内">
+      <img src="osirase/in-003-01.jpg" alt="年末・年始営業時間案内" loading="lazy" decoding="async">
       <figcaption>年末・年始 営業時間</figcaption>
     </figure>
 
     <figure class="ny-card">
-      <img src="osirase/in-002-01.jpg" alt="大晦日の営業案内">
+      <img src="osirase/in-002-01.jpg" alt="大晦日の営業案内" loading="lazy" decoding="async">
       <figcaption>12/31（大晦日）ご案内</figcaption>
     </figure>
 
     <figure class="ny-card">
-      <img src="osirase/in-001-01.jpg" alt="元日の営業案内">
+      <img src="osirase/in-001-01.jpg" alt="元日の営業案内" loading="lazy" decoding="async">
       <figcaption>1/1（元日）ご案内</figcaption>
     </figure>
     
@@ -49,6 +49,10 @@
       <small>© <span id="year"></span> 末広カントリークラブ</small>
     </div>
   </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 
 </body>
 </html>
