@@ -118,18 +118,26 @@
             </ul>
           </section>
 
-          <!-- 公式Xの埋め込みタイムライン -->
+          <!--
+            公式Xタイムライン欄は一時的に停止中
+            理由:
+            - X埋め込み側で 429 Too Many Requests が返ることがある
+            - ページ側では安定表示を保証できないため、いったん無効化
+            再開する場合は、この section と下部の loadXTimeline() / widgets.js 関連を戻す
           <section class="news-panel x-panel" aria-labelledby="x-heading">
             <div class="x-panel-head">
               <h3 id="x-heading" class="news-panel-title">公式X</h3>
               <a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer" class="x-panel-link">@suehiro_cc</a>
             </div>
             <div class="x-timeline-wrap">
-              <!-- widgets.js がこのリンクをタイムライン表示に置き換える -->
-              <a class="twitter-timeline" data-lang="ja" data-dnt="true" data-theme="light" data-height="520"
-                href="https://twitter.com/suehiro_cc">Posts by suehiro_cc</a>
+              <div id="x-timeline-root" class="x-timeline-root"></div>
+              <p class="x-timeline-fallback">
+                タイムラインが表示されない場合は
+                <a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer">公式Xを見る</a>
+              </p>
             </div>
           </section>
+          -->
         </div>
       </div>
     </section>
@@ -423,10 +431,64 @@
         syncNavState();
       }
 
+      /*
+        公式Xタイムラインの読み込み処理は一時停止中
+        理由:
+        - X側で 429 Too Many Requests に当たることがある
+        - ページ表示の安定性を優先して、いったん無効化
+
+      const loadXTimeline = () => {
+        const timelineRoot = document.getElementById('x-timeline-root');
+        if (!timelineRoot) {
+          return;
+        }
+
+        const renderTimeline = () => {
+          if (!window.twttr || !window.twttr.widgets || timelineRoot.dataset.loaded === 'true') {
+            return;
+          }
+
+          window.twttr.ready(() => {
+            window.twttr.widgets.createTimeline(
+              {
+                sourceType: 'profile',
+                screenName: 'suehiro_cc'
+              },
+              timelineRoot,
+              {
+                lang: 'ja',
+                theme: 'light',
+                height: 520,
+                dnt: true
+              }
+            ).then((element) => {
+              if (element) {
+                timelineRoot.dataset.loaded = 'true';
+              }
+            }).catch(() => {
+              timelineRoot.dataset.loaded = 'error';
+            });
+          });
+        };
+
+        if (window.twttr && window.twttr.widgets) {
+          renderTimeline();
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://platform.twitter.com/widgets.js';
+        script.async = true;
+        script.charset = 'utf-8';
+        script.onload = renderTimeline;
+        document.body.appendChild(script);
+      };
+
+      loadXTimeline();
+      */
+
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>
-    <!-- 公式X埋め込みを描画するスクリプト -->
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 
 </html>

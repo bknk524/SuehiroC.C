@@ -432,6 +432,12 @@ body {
 }
 
 /* X欄の見出しとアカウントリンク */
+/*
+  公式Xタイムライン欄のスタイルは一時停止中
+  理由:
+  - HTML側でX欄をコメントアウトしているため現在は未使用
+  - 再開時はこのブロックを戻せば同じ見た目で復帰できる
+
 .x-panel-head {
   display: flex;
   align-items: baseline;
@@ -451,7 +457,6 @@ body {
   text-decoration: underline;
 }
 
-/* Xタイムラインを囲む外枠 */
 .x-timeline-wrap {
   background: #fff;
   border: 1.5px solid #000;
@@ -461,9 +466,25 @@ body {
   overflow: hidden;
 }
 
+.x-timeline-root {
+  min-height: clamp(320px, 45vh, 520px);
+}
+
+.x-timeline-fallback {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.x-timeline-fallback a {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
 .x-timeline-wrap iframe {
   border-radius: 10px;
 }
+*/
 
 /* 手入力のお知らせ一覧本体 */
 .news-list {
@@ -483,7 +504,13 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
-/* 大きなモニターでは2カラムで同じ高さに揃える */
+/*
+  大きなモニター向けの2カラム化は一時停止中
+  理由:
+  - 公式X欄をコメントアウトしているため、2カラム指定を残すと
+    お知らせ欄が左カラムに寄って見える
+  - X欄を再開する時に、この media query も戻せば横並びに復帰できる
+
 @media (min-width: 1200px) {
   .news-layout {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -500,6 +527,7 @@ body {
     flex: 1;
   }
 }
+*/
 
 
 /* 各お知らせ項目の行レイアウト */
@@ -559,19 +587,9 @@ body {
     margin-bottom: 0.8rem;
   }
 
-  .x-panel-head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-  }
-
   .news-list {
     padding: 1.2rem;
     max-height: 360px;        /* ← モバイルも同系統に */
-  }
-
-  .x-timeline-wrap {
-    min-height: 420px;
   }
 
   .news-list li {
