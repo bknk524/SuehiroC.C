@@ -153,10 +153,72 @@
     </script>
 
 
-    <!-- クーポン -->
-    <div class="coupon">
-      <a href="coupon.html" class="btn coupon-btn">クーポン</a>
-    </div>
+    <!-- クーポンとキャラクター紹介 -->
+    <section class="coupon-showcase" aria-label="クーポンとキャラクター紹介">
+      <div class="coupon-showcase-inner">
+        <!-- 既存のクーポン導線 -->
+        <div class="coupon coupon-card">
+          <p class="coupon-label">WEB</p>
+          <a href="coupon.html" class="btn coupon-btn">クーポン</a>
+        </div>
+
+        <!-- 6キャラをその場で切り替えて見られる紹介ボックス -->
+        <section class="mascot-box" aria-labelledby="mascot-heading">
+          <div class="mascot-head">
+            <div>
+              <p class="mascot-eyebrow">Suehiro Friends</p>
+              <h2 id="mascot-heading">コースのなかまたち</h2>
+            </div>
+            <div class="mascot-controls" aria-label="キャラクター切り替え">
+              <button type="button" class="mascot-nav prev" aria-label="前のキャラクターを見る">‹</button>
+              <span class="mascot-counter" aria-live="polite">1 / 6</span>
+              <button type="button" class="mascot-nav next" aria-label="次のキャラクターを見る">›</button>
+            </div>
+          </div>
+
+          <!-- 横スライド本体。JSで translateX を切り替える -->
+          <div class="mascot-viewport">
+            <div class="mascot-track">
+              <article class="mascot-slide" aria-label="てんぷら">
+                <div class="mascot-art">
+                  <img src="character/てんぷら.png" alt="てんぷら" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="じぇんとるにゃあ">
+                <div class="mascot-art">
+                  <img src="character/じぇんとるにゃあ.png" alt="じぇんとるにゃあ" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="でーだらぼっち">
+                <div class="mascot-art">
+                  <img src="character/でーだらぼっち.jpg" alt="でーだらぼっち" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="アオリス">
+                <div class="mascot-art">
+                  <img src="character/アオリス.png" alt="アオリス" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="バンカー">
+                <div class="mascot-art">
+                  <img src="character/バンカー.png" alt="バンカー" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="スパイスバニー">
+                <div class="mascot-art">
+                  <img src="character/スパイスバニー.png" alt="スパイスバニー" loading="lazy" decoding="async">
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
 
     <!-- =====================================================
       一般料金セクション
@@ -486,6 +548,34 @@
 
       loadXTimeline();
       */
+
+      const mascotTrack = document.querySelector('.mascot-track');
+      const mascotSlides = document.querySelectorAll('.mascot-slide');
+      const mascotCounter = document.querySelector('.mascot-counter');
+      const prevMascot = document.querySelector('.mascot-nav.prev');
+      const nextMascot = document.querySelector('.mascot-nav.next');
+
+      if (mascotTrack && mascotSlides.length && mascotCounter && prevMascot && nextMascot) {
+        let mascotIndex = 0;
+
+        // スライダーの表示位置と現在番号を同期する
+        const syncMascotSlider = () => {
+          mascotTrack.style.transform = `translateX(-${mascotIndex * 100}%)`;
+          mascotCounter.textContent = `${mascotIndex + 1} / ${mascotSlides.length}`;
+        };
+
+        prevMascot.addEventListener('click', () => {
+          mascotIndex = (mascotIndex - 1 + mascotSlides.length) % mascotSlides.length;
+          syncMascotSlider();
+        });
+
+        nextMascot.addEventListener('click', () => {
+          mascotIndex = (mascotIndex + 1) % mascotSlides.length;
+          syncMascotSlider();
+        });
+
+        syncMascotSlider();
+      }
 
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>

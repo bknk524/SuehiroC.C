@@ -613,11 +613,44 @@ body {
 
 
 /* =====================================================
-   クーポンボタン
+   クーポン + キャラクター紹介
 ===================================================== */
+.coupon-showcase {
+  margin: 2rem 0 3rem;
+  padding: 0 1rem;
+}
+
+.coupon-showcase-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
 .coupon {
   text-align: center;
-  margin: 2rem 0 3rem;
+}
+
+.coupon-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(245, 238, 195, 0.95));
+  border: 1px solid rgba(46, 125, 50, 0.16);
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+}
+
+.coupon-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: #2e7d32;
+  text-transform: uppercase;
 }
 
 .coupon-btn {
@@ -625,7 +658,7 @@ body {
   background: #2e7d32;
   color: #fff;
   padding: 0.9rem 1.8rem;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: 600;
   text-decoration: none;
   transition: background 0.25s ease, transform 0.2s ease;
@@ -636,11 +669,216 @@ body {
   transform: translateY(-2px);
 }
 
+.mascot-box {
+  padding: 1.25rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(248, 244, 217, 0.96));
+  border: 1px solid rgba(46, 125, 50, 0.14);
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+}
+
+.mascot-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+
+.mascot-eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: #2e7d32;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.mascot-box h2 {
+  font-size: clamp(1.2rem, 1.2vw + 1rem, 1.8rem);
+  color: #2e7d32;
+  line-height: 1.2;
+}
+
+.mascot-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.mascot-nav {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: #2e7d32;
+  color: #fff;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.mascot-nav:hover {
+  background: #45b94f;
+  transform: translateY(-2px);
+}
+
+.mascot-counter {
+  min-width: 3.6rem;
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mascot-viewport {
+  overflow: hidden;
+  border: 1.5px solid #000;
+  border-radius: 16px;
+  background: #fffdfa;
+}
+
+.mascot-track {
+  display: flex;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.mascot-slide {
+  width: 100%;
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.mascot-art {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 420px;
+}
+
+.mascot-art img {
+  max-width: 100%;
+  max-height: 520px;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+@media (max-width: 852px) {
+  .coupon-showcase-inner {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .coupon-card {
+    padding: 1rem;
+  }
+
+  .mascot-head {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+  }
+
+  .mascot-slide {
+    padding: 0.9rem;
+  }
+
+  .mascot-art {
+    min-height: auto;
+  }
+
+  .mascot-art img {
+    max-height: 430px;
+  }
+}
+
 /* モバイル調整 */
 @media (max-width: 768px) {
+  .coupon-showcase {
+    margin: 1.5rem 0 2rem;
+    padding: 0 1rem;
+  }
+
+  .coupon-showcase-inner {
+    gap: 0.9rem;
+  }
+
+  .coupon-card,
+  .mascot-box {
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  }
+
+  .coupon-card {
+    padding: 1rem;
+    gap: 0.7rem;
+    align-items: center;
+    text-align: center;
+  }
+
   .coupon-btn {
-    padding: 0.8rem 1.6rem;
-    font-size: 0.95rem;
+    width: min(100%, 220px);
+  }
+
+  .mascot-box {
+    padding: 1rem;
+  }
+
+  .mascot-eyebrow {
+    font-size: 0.72rem;
+  }
+
+  .mascot-box h2 {
+    font-size: 1.35rem;
+  }
+
+  .mascot-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .mascot-counter {
+    flex: 1;
+  }
+
+  .mascot-viewport {
+    border-radius: 12px;
+  }
+
+  .mascot-slide {
+    padding: 0.8rem;
+  }
+
+  .mascot-art {
+    min-height: auto;
+  }
+
+  .mascot-art img {
+    max-height: 340px;
+  }
+}
+
+@media (max-width: 420px) {
+  .coupon-showcase {
+    padding: 0 0.9rem;
+  }
+
+  .mascot-slide {
+    padding: 0.7rem;
+  }
+
+  .mascot-art img {
+    max-height: 280px;
   }
 }
 
