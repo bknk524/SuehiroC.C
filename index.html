@@ -552,29 +552,121 @@
       const mascotTrack = document.querySelector('.mascot-track');
       const mascotSlides = document.querySelectorAll('.mascot-slide');
       const mascotCounter = document.querySelector('.mascot-counter');
+      const mascotViewport = document.querySelector('.mascot-viewport');
       const prevMascot = document.querySelector('.mascot-nav.prev');
       const nextMascot = document.querySelector('.mascot-nav.next');
 
-      if (mascotTrack && mascotSlides.length && mascotCounter && prevMascot && nextMascot) {
-        let mascotIndex = 0;
+      if (mascotTrack && mascotSlides.length && mascotCounter && mascotViewport && prevMascot && nextMascot) {
+        const mascotSlideCount = mascotSlides.length;
+        const firstMascotClone = mascotSlides[0].cloneNode(true);
+        const lastMascotClone = mascotSlides[mascotSlideCount - 1].cloneNode(true);
+        let mascotPosition = 1;
+        let swipeStartX = 0;
+        let swipeStartY = 0;
+        let isSwipingMascot = false;
+        let isMascotAnimating = false;
 
-        // スライダーの表示位置と現在番号を同期する
-        const syncMascotSlider = () => {
-          mascotTrack.style.transform = `translateX(-${mascotIndex * 100}%)`;
-          mascotCounter.textContent = `${mascotIndex + 1} / ${mascotSlides.length}`;
+        firstMascotClone.setAttribute('aria-hidden', 'true');
+        lastMascotClone.setAttribute('aria-hidden', 'true');
+        mascotTrack.appendChild(firstMascotClone);
+        mascotTrack.insertBefore(lastMascotClone, mascotSlides[0]);
+
+        const updateMascotCounter = () => {
+          const currentMascotNumber = ((mascotPosition - 1 + mascotSlideCount) % mascotSlideCount) + 1;
+          mascotCounter.textContent = `${currentMascotNumber} / ${mascotSlideCount}`;
         };
 
-        prevMascot.addEventListener('click', () => {
-          mascotIndex = (mascotIndex - 1 + mascotSlides.length) % mascotSlides.length;
+        // スライダーの表示位置と現在番号を同期する
+        const syncMascotSlider = (useTransition = true) => {
+          mascotTrack.style.transition = useTransition ? '' : 'none';
+          mascotTrack.style.transform = `translateX(-${mascotPosition * 100}%)`;
+          updateMascotCounter();
+
+          if (!useTransition) {
+            mascotTrack.offsetHeight;
+            mascotTrack.style.transition = '';
+          }
+        };
+
+        const showPrevMascot = () => {
+          if (isMascotAnimating) {
+            return;
+          }
+
+          isMascotAnimating = true;
+          mascotPosition -= 1;
           syncMascotSlider();
+        };
+
+        const showNextMascot = () => {
+          if (isMascotAnimating) {
+            return;
+          }
+
+          isMascotAnimating = true;
+          mascotPosition += 1;
+          syncMascotSlider();
+        };
+
+        prevMascot.addEventListener('click', showPrevMascot);
+        nextMascot.addEventListener('click', showNextMascot);
+
+        mascotViewport.addEventListener('pointerdown', (event) => {
+          if (event.pointerType === 'mouse' && event.button !== 0) {
+            return;
+          }
+
+          swipeStartX = event.clientX;
+          swipeStartY = event.clientY;
+          isSwipingMascot = true;
+          mascotViewport.classList.add('is-dragging');
+          mascotViewport.setPointerCapture(event.pointerId);
         });
 
-        nextMascot.addEventListener('click', () => {
-          mascotIndex = (mascotIndex + 1) % mascotSlides.length;
-          syncMascotSlider();
+        mascotViewport.addEventListener('pointerup', (event) => {
+          if (!isSwipingMascot) {
+            return;
+          }
+
+          const swipeX = event.clientX - swipeStartX;
+          const swipeY = event.clientY - swipeStartY;
+          const threshold = Math.max(40, Math.min(80, mascotViewport.clientWidth * 0.18));
+
+          isSwipingMascot = false;
+          mascotViewport.classList.remove('is-dragging');
+          if (mascotViewport.hasPointerCapture(event.pointerId)) {
+            mascotViewport.releasePointerCapture(event.pointerId);
+          }
+
+          if (Math.abs(swipeX) < threshold || Math.abs(swipeX) < Math.abs(swipeY) * 1.2) {
+            return;
+          }
+
+          if (swipeX < 0) {
+            showNextMascot();
+          } else {
+            showPrevMascot();
+          }
         });
 
-        syncMascotSlider();
+        mascotViewport.addEventListener('pointercancel', () => {
+          isSwipingMascot = false;
+          mascotViewport.classList.remove('is-dragging');
+        });
+
+        mascotTrack.addEventListener('transitionend', () => {
+          if (mascotPosition === 0) {
+            mascotPosition = mascotSlideCount;
+            syncMascotSlider(false);
+          } else if (mascotPosition === mascotSlideCount + 1) {
+            mascotPosition = 1;
+            syncMascotSlider(false);
+          }
+
+          isMascotAnimating = false;
+        });
+
+        syncMascotSlider(false);
       }
 
       document.getElementById('year').textContent = new Date().getFullYear();
