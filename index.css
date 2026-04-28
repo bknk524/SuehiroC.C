@@ -563,13 +563,83 @@ body {
   text-align: left;
 }
 
+.news-image-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 0.4rem;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+}
+
 /* お知らせ内の画像（全体表示対応） */
 .news-list p img {
   display: block;
   max-width: 100%;
   height: auto;
-  margin-bottom: 0.4rem;
   border-radius: 6px;
+}
+
+.news-image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.news-image-modal[hidden] {
+  display: none;
+}
+
+.news-image-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.news-image-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 960px);
+  max-height: calc(100vh - 2.5rem);
+  padding: 2.5rem 1rem 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.news-image-modal-img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  max-height: calc(100vh - 6rem);
+  height: auto;
+  object-fit: contain;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+
+.news-image-modal-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  background: #2e7d32;
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.news-image-modal-close:hover {
+  background: #45b94f;
 }
 
 /* laptop相当以下は縦並びを基準にして余白も少し詰める */
@@ -609,6 +679,19 @@ body {
   .news-list p {
     font-size: 0.95rem;
   }
+
+  .news-image-modal {
+    padding: 0.75rem;
+  }
+
+  .news-image-modal-dialog {
+    padding: 2.25rem 0.75rem 0.75rem;
+    max-height: calc(100vh - 1.5rem);
+  }
+
+  .news-image-modal-img {
+    max-height: calc(100vh - 4.5rem);
+  }
 }
 
 
@@ -627,6 +710,11 @@ body {
   grid-template-columns: 260px minmax(0, 1fr);
   gap: 1.5rem;
   align-items: stretch;
+}
+
+.coupon-showcase-inner.coupon-only {
+  max-width: 260px;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .coupon {
@@ -663,6 +751,15 @@ body {
 .coupon-btn:hover {
   background: #45b94f;
   transform: translateY(-2px);
+}
+
+.mascot-showcase {
+  margin: 0 0 3rem;
+  padding: 0 1rem;
+}
+
+.mascot-showcase .container {
+  max-width: 1000px;
 }
 
 .mascot-box {
@@ -783,6 +880,10 @@ body {
     gap: 1rem;
   }
 
+  .coupon-showcase-inner.coupon-only {
+    max-width: 260px;
+  }
+
   .coupon-card {
     padding: 0;
   }
@@ -810,6 +911,11 @@ body {
 @media (max-width: 768px) {
   .coupon-showcase {
     margin: 1.5rem 0 2rem;
+    padding: 0 1rem;
+  }
+
+  .mascot-showcase {
+    margin: 0 0 2rem;
     padding: 0 1rem;
   }
 

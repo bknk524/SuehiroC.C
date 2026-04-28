@@ -105,7 +105,7 @@
               </li> -->
               <li>
                 <time datetime="2026-01-05">2026/01/05</time>
-                <p><img src="osirase/Nengajou.jpg" alt="" loading="lazy" decoding="async">新年明けましておめでとうございます<br>今年もよろしくお願いします</p>
+                <p><button type="button" class="news-image-trigger" aria-label="新年の挨拶画像を拡大表示" data-full-image="osirase/Nengajou.jpg" data-image-alt="新年の挨拶画像"><img src="osirase/Nengajou.jpg" alt="新年の挨拶画像" loading="lazy" decoding="async"></button>新年明けましておめでとうございます<br>今年もよろしくお願いします</p>
               </li>
               <li>
                 <time datetime="2026-02-08">2026/02/08</time>
@@ -114,6 +114,10 @@
               <li>
                 <time datetime="2026-03-04">2026/03/04</time>
                 <p>薄暮は3月1日より14時30分からとなります</p>
+              </li>
+              <li>
+                <time datetime="2026-04-28">2026/04/28</time>
+                <p><button type="button" class="news-image-trigger" aria-label="ゴールデンウィーク料金のお知らせ画像を拡大表示" data-full-image="osirase/goldenWeek-2026-04-28.png" data-image-alt="2026年ゴールデンウィーク料金のお知らせ"><img src="osirase/goldenWeek-2026-04-28.png" alt="2026年ゴールデンウィーク料金のお知らせ" loading="lazy" decoding="async"></button>ゴールデンウィーク料金のお知らせ</p>
               </li>
             </ul>
           </section>
@@ -153,70 +157,14 @@
     </script>
 
 
-    <!-- クーポンとキャラクター紹介 -->
-    <section class="coupon-showcase" aria-label="クーポンとキャラクター紹介">
-      <div class="coupon-showcase-inner">
+    <!-- クーポン -->
+    <section class="coupon-showcase" aria-label="クーポン">
+      <div class="coupon-showcase-inner coupon-only">
         <!-- 既存のクーポン導線 -->
         <div class="coupon coupon-card">
           <p class="coupon-label">WEB</p>
           <a href="coupon.html" class="btn coupon-btn">クーポン</a>
         </div>
-
-        <!-- 6キャラをその場で切り替えて見られる紹介ボックス -->
-        <section class="mascot-box" aria-labelledby="mascot-heading">
-          <div class="mascot-head">
-            <div>
-              <p class="mascot-eyebrow">Suehiro Friends</p>
-              <h2 id="mascot-heading">コースのなかまたち</h2>
-            </div>
-            <div class="mascot-controls" aria-label="キャラクター切り替え">
-              <button type="button" class="mascot-nav prev" aria-label="前のキャラクターを見る">‹</button>
-              <span class="mascot-counter" aria-live="polite">1 / 6</span>
-              <button type="button" class="mascot-nav next" aria-label="次のキャラクターを見る">›</button>
-            </div>
-          </div>
-
-          <!-- 横スライド本体。JSで translateX を切り替える -->
-          <div class="mascot-viewport">
-            <div class="mascot-track">
-              <article class="mascot-slide" aria-label="てんぷら">
-                <div class="mascot-art">
-                  <img src="character/てんぷら.png" alt="てんぷら" loading="lazy" decoding="async">
-                </div>
-              </article>
-
-              <article class="mascot-slide" aria-label="じぇんとるにゃあ">
-                <div class="mascot-art">
-                  <img src="character/じぇんとるにゃあ.png" alt="じぇんとるにゃあ" loading="lazy" decoding="async">
-                </div>
-              </article>
-
-              <article class="mascot-slide" aria-label="でーだらぼっち">
-                <div class="mascot-art">
-                  <img src="character/でーだらぼっち.jpg" alt="でーだらぼっち" loading="lazy" decoding="async">
-                </div>
-              </article>
-
-              <article class="mascot-slide" aria-label="アオリス">
-                <div class="mascot-art">
-                  <img src="character/アオリス.png" alt="アオリス" loading="lazy" decoding="async">
-                </div>
-              </article>
-
-              <article class="mascot-slide" aria-label="バンカー">
-                <div class="mascot-art">
-                  <img src="character/バンカー.png" alt="バンカー" loading="lazy" decoding="async">
-                </div>
-              </article>
-
-              <article class="mascot-slide" aria-label="スパイスバニー">
-                <div class="mascot-art">
-                  <img src="character/スパイスバニー.png" alt="スパイスバニー" loading="lazy" decoding="async">
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
       </div>
     </section>
 
@@ -362,6 +310,66 @@
       </div>
     </section>
 
+    <!-- コースのなかまたち -->
+    <section class="mascot-showcase" aria-labelledby="mascot-heading">
+      <div class="container">
+        <section class="mascot-box" aria-labelledby="mascot-heading">
+          <div class="mascot-head">
+            <div>
+              <p class="mascot-eyebrow">Suehiro Friends</p>
+              <h2 id="mascot-heading">コースのなかまたち</h2>
+            </div>
+            <div class="mascot-controls" aria-label="キャラクター切り替え">
+              <button type="button" class="mascot-nav prev" aria-label="前のキャラクターを見る">‹</button>
+              <span class="mascot-counter" aria-live="polite">1 / 6</span>
+              <button type="button" class="mascot-nav next" aria-label="次のキャラクターを見る">›</button>
+            </div>
+          </div>
+
+          <!-- 横スライド本体。JSで translateX を切り替える -->
+          <div class="mascot-viewport">
+            <div class="mascot-track">
+              <article class="mascot-slide" aria-label="てんぷら">
+                <div class="mascot-art">
+                  <img src="character/てんぷら.png" alt="てんぷら" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="じぇんとるにゃあ">
+                <div class="mascot-art">
+                  <img src="character/じぇんとるにゃあ.png" alt="じぇんとるにゃあ" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="でーだらぼっち">
+                <div class="mascot-art">
+                  <img src="character/でーだらぼっち.jpg" alt="でーだらぼっち" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="アオリス">
+                <div class="mascot-art">
+                  <img src="character/アオリス.png" alt="アオリス" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="バンカー">
+                <div class="mascot-art">
+                  <img src="character/バンカー.png" alt="バンカー" loading="lazy" decoding="async">
+                </div>
+              </article>
+
+              <article class="mascot-slide" aria-label="スパイスバニー">
+                <div class="mascot-art">
+                  <img src="character/スパイスバニー.png" alt="スパイスバニー" loading="lazy" decoding="async">
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
     <!-- アクセス -->
     <section id="access" class="section alt" aria-label="アクセス">
       <div class="container">
@@ -415,6 +423,14 @@
     </section> -->
 
   </main>
+
+    <div class="news-image-modal" hidden aria-hidden="true">
+      <div class="news-image-modal-backdrop" data-modal-close="true"></div>
+      <div class="news-image-modal-dialog" role="dialog" aria-modal="true" aria-label="お知らせ画像の拡大表示">
+        <button type="button" class="news-image-modal-close" aria-label="拡大画像を閉じる" data-modal-close="true">×</button>
+        <img src="" alt="" class="news-image-modal-img">
+      </div>
+    </div>
 
     <!-- フッター -->
     <footer class="site-footer" role="contentinfo">
@@ -548,6 +564,45 @@
 
       loadXTimeline();
       */
+
+      const newsImageTriggers = document.querySelectorAll('.news-image-trigger');
+      const newsImageModal = document.querySelector('.news-image-modal');
+      const newsImageModalImg = document.querySelector('.news-image-modal-img');
+      const newsImageModalCloseTargets = document.querySelectorAll('[data-modal-close="true"]');
+
+      if (newsImageTriggers.length && newsImageModal && newsImageModalImg) {
+        const openNewsImageModal = (trigger) => {
+          newsImageModalImg.src = trigger.dataset.fullImage || '';
+          newsImageModalImg.alt = trigger.dataset.imageAlt || '';
+          newsImageModal.hidden = false;
+          newsImageModal.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        };
+
+        const closeNewsImageModal = () => {
+          newsImageModal.hidden = true;
+          newsImageModal.setAttribute('aria-hidden', 'true');
+          newsImageModalImg.src = '';
+          newsImageModalImg.alt = '';
+          document.body.style.overflow = '';
+        };
+
+        newsImageTriggers.forEach((trigger) => {
+          trigger.addEventListener('click', () => {
+            openNewsImageModal(trigger);
+          });
+        });
+
+        newsImageModalCloseTargets.forEach((target) => {
+          target.addEventListener('click', closeNewsImageModal);
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && !newsImageModal.hidden) {
+            closeNewsImageModal();
+          }
+        });
+      }
 
       const mascotTrack = document.querySelector('.mascot-track');
       const mascotSlides = document.querySelectorAll('.mascot-slide');
