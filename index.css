@@ -659,7 +659,7 @@ body {
 
   .news-list {
     padding: 1.2rem;
-    max-height: 360px;        /* ← モバイルも同系統に */
+    max-height: 360px;
   }
 
   .news-list li {
@@ -705,6 +705,7 @@ body {
 
 .faq-section .container {
   max-width: 1000px;
+  margin: 0 auto;
 }
 
 .faq-shell {
@@ -889,6 +890,7 @@ body {
 
 .mascot-showcase .container {
   max-width: 1000px;
+  margin: 0 auto;
 }
 
 .mascot-box {

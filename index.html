@@ -147,12 +147,22 @@
     </section>
 
     <script>
-      // 最新のお知らせが下に追加される運用を想定して、初期表示を末尾に合わせる
       window.addEventListener('DOMContentLoaded', () => {
         const newsList = document.querySelector('.news-list');
-        if (newsList) {
-          newsList.scrollTop = newsList.scrollHeight;
+        if (!newsList) {
+          return;
         }
+
+        const newsItems = Array.from(newsList.querySelectorAll('li'));
+        newsItems
+          .sort((firstItem, secondItem) => {
+            const firstDate = firstItem.querySelector('time')?.getAttribute('datetime') ?? '';
+            const secondDate = secondItem.querySelector('time')?.getAttribute('datetime') ?? '';
+            return secondDate.localeCompare(firstDate);
+          })
+          .forEach((item) => newsList.appendChild(item));
+
+        newsList.scrollTop = 0;
       });
     </script>
 
