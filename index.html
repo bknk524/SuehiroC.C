@@ -15,7 +15,7 @@
   <link rel="icon" href="rogo2.ico">
   <link rel="preload" as="image" href="image/relese-3.webp">
   <link rel="preconnect" href="https://platform.twitter.com">
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="index.css?v=20260428-2">
 </head>
 
 <body>
@@ -105,7 +105,7 @@
               </li> -->
               <li>
                 <time datetime="2026-01-05">2026/01/05</time>
-                <p><button type="button" class="news-image-trigger" aria-label="新年の挨拶画像を拡大表示" data-full-image="osirase/Nengajou.jpg" data-image-alt="新年の挨拶画像"><img src="osirase/Nengajou.jpg" alt="新年の挨拶画像" loading="lazy" decoding="async"></button>新年明けましておめでとうございます<br>今年もよろしくお願いします</p>
+                <p><a href="osirase/Nengajou.jpg" class="news-image-trigger" aria-label="新年の挨拶画像を拡大表示" data-full-image="osirase/Nengajou.jpg" data-image-alt="新年の挨拶画像"><img src="osirase/Nengajou.jpg" alt="新年の挨拶画像" loading="lazy" decoding="async"></a>新年明けましておめでとうございます<br>今年もよろしくお願いします</p>
               </li>
               <li>
                 <time datetime="2026-02-08">2026/02/08</time>
@@ -117,7 +117,7 @@
               </li>
               <li>
                 <time datetime="2026-04-28">2026/04/28</time>
-                <p><button type="button" class="news-image-trigger" aria-label="ゴールデンウィーク料金のお知らせ画像を拡大表示" data-full-image="osirase/goldenWeek-2026-04-28.png" data-image-alt="2026年ゴールデンウィーク料金のお知らせ"><img src="osirase/goldenWeek-2026-04-28.png" alt="2026年ゴールデンウィーク料金のお知らせ" loading="lazy" decoding="async"></button>ゴールデンウィーク料金のお知らせ</p>
+                <p><a href="osirase/goldenWeek-2026-04-28.png" class="news-image-trigger" aria-label="ゴールデンウィーク料金のお知らせ画像を拡大表示" data-full-image="osirase/goldenWeek-2026-04-28.png" data-image-alt="2026年ゴールデンウィーク料金のお知らせ"><img src="osirase/goldenWeek-2026-04-28.png" alt="2026年ゴールデンウィーク料金のお知らせ" loading="lazy" decoding="async"></a>ゴールデンウィーク料金のお知らせ</p>
               </li>
             </ul>
           </section>
@@ -147,22 +147,35 @@
     </section>
 
     <script>
+      // 日付の新しい順に並べ替えて、最新のお知らせを最初から見える位置にする
       window.addEventListener('DOMContentLoaded', () => {
         const newsList = document.querySelector('.news-list');
-        if (!newsList) {
-          return;
+        if (newsList) {
+          const newsItems = Array.from(newsList.querySelectorAll('li'));
+          newsItems
+            .sort((firstItem, secondItem) => {
+              const firstDate = firstItem.querySelector('time')?.getAttribute('datetime') ?? '';
+              const secondDate = secondItem.querySelector('time')?.getAttribute('datetime') ?? '';
+              return secondDate.localeCompare(firstDate);
+            })
+            .forEach((item) => {
+              newsList.appendChild(item);
+            });
+
+          newsList.scrollTop = 0;
         }
 
-        const newsItems = Array.from(newsList.querySelectorAll('li'));
-        newsItems
-          .sort((firstItem, secondItem) => {
-            const firstDate = firstItem.querySelector('time')?.getAttribute('datetime') ?? '';
-            const secondDate = secondItem.querySelector('time')?.getAttribute('datetime') ?? '';
-            return secondDate.localeCompare(firstDate);
-          })
-          .forEach((item) => newsList.appendChild(item));
+        const studentTableWrap = document.querySelector('.price-student .table-wrap');
+        const studentTable = document.querySelector('.price-student .table');
 
-        newsList.scrollTop = 0;
+        if (studentTableWrap && studentTable) {
+          const syncStudentSwipeHint = () => {
+            studentTableWrap.classList.toggle('is-scrollable', studentTable.scrollWidth > studentTableWrap.clientWidth + 1);
+          };
+
+          syncStudentSwipeHint();
+          window.addEventListener('resize', syncStudentSwipeHint);
+        }
       });
     </script>
 
@@ -212,7 +225,7 @@
                 <th scope="row">おはゴルフ</th>
                 <td>¥1,500</td>
                 <td>¥2,500</td>
-                <td>朝6時から開始<br>プレ延長あり<br>平日は追加¥1,000で1日周り放題<br>土日祝は追加¥1,000で午前中まで<br>追加¥2,000で1日周り放題</td>
+                <td>朝6時から開始<br>プレ延長あり<br>平日は追加¥1,000で1日周り放題<br>土日祝は追加¥1,000で午前中まで<br>追加¥2,000で1日周り放題<br>学生も同一料金です</td>
               </tr>
             </tbody>
           </table>
@@ -235,7 +248,6 @@
                 <th scope="col">平日<br>薄暮</th>
                 <th scope="col">土日祝</th>
                 <th scope="col">土日祝<br>薄暮</th>
-                <th scope="col">おは<br>ゴルフ</th>
               </tr>
             </thead>
             <tbody>
@@ -245,7 +257,6 @@
                 <td>¥1,400</td>
                 <td>¥1,900</td>
                 <td>¥1,900</td>
-                <td>¥1,500</td>
               </tr>
               <tr>
                 <th scope="row">大学生</th>
@@ -253,7 +264,6 @@
                 <td>¥1,400</td>
                 <td>¥2,200</td>
                 <td>¥2,200</td>
-                <td>¥2,000</td>
               </tr>
             </tbody>
           </table>
@@ -323,6 +333,7 @@
     <!-- よくあるお問い合わせ -->
     <section id="faq" class="faq-section" aria-labelledby="faq-heading">
       <div class="container">
+        <h2 class="section-heading">その他</h2>
         <div class="faq-shell">
           <p class="faq-eyebrow">Q &amp; A</p>
           <h2 id="faq-heading">よくあるお問い合わせ</h2>
@@ -332,6 +343,11 @@
             <details class="faq-item" open>
               <summary>予約は必要ですか？</summary>
               <p>ご予約なしでご利用いただけます。受付後、ご準備が整いましたら順にスタートしてください。当日の営業状況や混雑が気になる場合は、お電話にてご確認ください。</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>ドレスコードはありますか？</summary>
+              <p>服装は自由ですが、動きやすい服装をおすすめしています。コース内は滑りやすい場所がありますので、ゴルフシューズのご利用をおすすめします。</p>
             </details>
 
             <details class="faq-item">
@@ -609,12 +625,14 @@
       const newsImageModalCloseTargets = document.querySelectorAll('[data-modal-close="true"]');
 
       if (newsImageTriggers.length && newsImageModal && newsImageModalImg) {
+        const canUseNewsImageModal = window.getComputedStyle(newsImageModal).position === 'fixed';
+
         const openNewsImageModal = (trigger) => {
           newsImageModalImg.src = trigger.dataset.fullImage || '';
           newsImageModalImg.alt = trigger.dataset.imageAlt || '';
           newsImageModal.hidden = false;
           newsImageModal.setAttribute('aria-hidden', 'false');
-          document.body.style.overflow = 'hidden';
+          document.body.classList.add('news-modal-open');
         };
 
         const closeNewsImageModal = () => {
@@ -622,11 +640,16 @@
           newsImageModal.setAttribute('aria-hidden', 'true');
           newsImageModalImg.src = '';
           newsImageModalImg.alt = '';
-          document.body.style.overflow = '';
+          document.body.classList.remove('news-modal-open');
         };
 
         newsImageTriggers.forEach((trigger) => {
-          trigger.addEventListener('click', () => {
+          trigger.addEventListener('click', (event) => {
+            if (!canUseNewsImageModal) {
+              return;
+            }
+
+            event.preventDefault();
             openNewsImageModal(trigger);
           });
         });

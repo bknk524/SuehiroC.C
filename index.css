@@ -571,6 +571,7 @@ body {
   border: none;
   background: transparent;
   cursor: zoom-in;
+  text-decoration: none;
 }
 
 /* お知らせ内の画像（全体表示対応） */
@@ -621,6 +622,10 @@ body {
   object-fit: contain;
   margin: 0 auto;
   border-radius: 6px;
+}
+
+body.news-modal-open {
+  overflow: hidden;
 }
 
 .news-image-modal-close {
@@ -699,13 +704,24 @@ body {
    よくあるお問い合わせ
 ===================================================== */
 .faq-section {
-  margin: 0 0 3rem;
+  margin: 2.5rem 0 3rem;
   padding: 0 1rem;
 }
 
 .faq-section .container {
   max-width: 1000px;
   margin: 0 auto;
+}
+
+.section-heading {
+  font-size: clamp(1.6rem, 1.4vw + 1rem, 2.4rem);
+  color: #2e7d32;
+  margin-bottom: 1rem;
+  text-align: left;
+  border-left: 6px solid #45b94f;
+  padding-left: 0.75rem;
+  background: linear-gradient(90deg, rgba(69,185,79,.08), transparent 60%);
+  display: block;
 }
 
 .faq-shell {
@@ -855,8 +871,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 1rem;
   padding: 0;
+  text-align: center;
 }
 
 .coupon-label {
@@ -868,12 +886,17 @@ body {
 }
 
 .coupon-btn {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   background: #2e7d32;
   color: #fff;
-  padding: 0.9rem 1.8rem;
+  min-width: clamp(180px, 24vw, 260px);
+  min-height: 52px;
+  padding: 0.95rem 2rem;
   border-radius: 10px;
-  font-weight: 600;
+  font-size: clamp(1rem, 0.25vw + 0.95rem, 1.15rem);
+  font-weight: 700;
   text-decoration: none;
   transition: background 0.25s ease, transform 0.2s ease;
 }
@@ -889,11 +912,13 @@ body {
 }
 
 .mascot-showcase .container {
+  width: min(100%, 1000px);
   max-width: 1000px;
   margin: 0 auto;
 }
 
 .mascot-box {
+  width: 100%;
   padding: 1.25rem;
   background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(248, 244, 217, 0.96));
   border: 1px solid rgba(46, 125, 50, 0.14);
@@ -1067,7 +1092,8 @@ body {
   }
 
   .coupon-btn {
-    width: min(100%, 220px);
+    width: min(100%, 260px);
+    min-height: 50px;
   }
 
   .mascot-box {
@@ -1209,7 +1235,7 @@ body {
 ===================================================== */
 .price-student {
   background: #e4ddb0;
-  padding: 3rem 1rem;
+  padding: 1.5rem 1rem 3rem;
   text-align: center;
 }
 
@@ -1303,12 +1329,16 @@ body {
   /* 案内文 */
   .price-student .table-wrap::after {
     content: "👉 スワイプで全列を確認できます";
-    display: block;
+    display: none;
     font-size: 0.8rem;
     color: #000;
     text-align: right;
     margin-top: 0.3rem;
     opacity: 0.8;
+  }
+
+  .price-student .table-wrap.is-scrollable::after {
+    display: block;
   }
 
   .price-student h3 {
