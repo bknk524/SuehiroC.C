@@ -15,21 +15,40 @@
 
   const menuButton = document.querySelector(".menu-toggle");
   const navigation = document.querySelector(".navigation");
-  const mobileNavigation = window.matchMedia("(max-width: 1200px)");
+  const headerInner = document.querySelector(".header-inner");
+  let navigationCollapsed;
+  let focusedMenuElement = null;
   const setMenu = open => {
     navigation.classList.toggle("is-open", open);
     menuButton.setAttribute("aria-expanded", String(open));
     menuButton.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
   };
   const syncMenu = () => {
+    // CSSのコンテナクエリを読み取り、境界値をJS側に重複させない。
+    const collapsed = getComputedStyle(headerInner).getPropertyValue("--navigation-collapsed").trim() === "1";
+    // CSSで先に非表示になった場合、ブラウザーが外したフォーカスも引き継ぐ。
+    const focused = document.activeElement === document.body ? focusedMenuElement : document.activeElement;
+    const focusedLink = navigation.contains(focused);
+    const focusedButton = focused === menuButton;
+    if (collapsed === navigationCollapsed) {
+      if (focusedLink && !focused.getClientRects().length) menuButton.focus();
+      return;
+    }
+    navigationCollapsed = collapsed;
     setMenu(false);
-    menuButton.hidden = !mobileNavigation.matches;
+    menuButton.hidden = !collapsed;
+    if (collapsed && focusedLink) menuButton.focus();
+    if (!collapsed && focusedButton) navigation.querySelector("a").focus();
   };
   syncMenu();
-  mobileNavigation.addEventListener("change", syncMenu);
+  if ("ResizeObserver" in window) new ResizeObserver(syncMenu).observe(headerInner);
+  else window.addEventListener("resize", syncMenu);
   menuButton.addEventListener("click", () => setMenu(menuButton.getAttribute("aria-expanded") !== "true"));
   navigation.addEventListener("click", event => {
-    if (event.target.closest("a")) setMenu(false);
+    if (event.target.closest("a")) {
+      focusedMenuElement = null;
+      setMenu(false);
+    }
   });
   document.addEventListener("keydown", event => {
     if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
@@ -38,9 +57,13 @@
     }
   });
   document.addEventListener("click", event => {
-    if (!event.target.closest(".site-header")) setMenu(false);
+    if (!event.target.closest(".site-header")) {
+      focusedMenuElement = null;
+      setMenu(false);
+    }
   });
   document.addEventListener("focusin", event => {
+    focusedMenuElement = event.target === menuButton || navigation.contains(event.target) ? event.target : null;
     if (!event.target.closest(".site-header")) setMenu(false);
   });
 

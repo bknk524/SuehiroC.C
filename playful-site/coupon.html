@@ -12,27 +12,27 @@
   <link rel="stylesheet" href="style.css" fetchpriority="high">
   <script src="script.js" defer fetchpriority="high" onerror="document.documentElement.classList.remove('has-js')"></script>
 </head>
-<body class="coupon-page">
+<body class="document-page coupon-page">
   <a class="skip-link" href="#main">本文へ移動</a>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="末広カントリークラブ ホーム">
-        <img src="assets/logo.png" width="586" height="619" alt="" loading="lazy" decoding="async" fetchpriority="low">
-        <span><strong class="brand-full">SUEHIRO C.C.</strong><strong class="brand-short">末広C.C.</strong><span>末広カントリークラブ</span></span>
+        <img src="assets/logo.png" width="586" height="619" alt="" loading="eager" decoding="async">
+        <span><strong class="brand-name-ja">末広カントリークラブ</strong><strong class="brand-name-en" lang="en">SUEHIRO C.C.</strong></span>
       </a>
+      <div class="header-actions">
+        <div class="social-links" aria-label="公式SNS"><a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer" aria-label="公式X（新しいタブ）"><img src="assets/x.svg" width="128" height="128" alt="X" loading="eager" decoding="async"></a><a href="https://www.instagram.com/suehiro.golf" target="_blank" rel="noopener noreferrer" aria-label="公式Instagram（新しいタブ）"><img src="assets/instagram.png" width="128" height="128" alt="Instagram" loading="eager" decoding="async"></a></div>
+        <a class="header-coupon" href="coupon.html" aria-current="page">クーポン<span aria-hidden="true"> ↗</span></a>
+        <button class="menu-toggle" type="button" aria-controls="navigation" aria-label="メニューを開く" aria-expanded="false" hidden><span class="menu-lines" aria-hidden="true"></span><span>メニュー</span></button>
+      </div>
       <nav id="navigation" class="navigation" aria-label="メインメニュー">
         <a href="index.html#news">お知らせ</a><a href="index.html#price">料金</a><a href="course.html">コース</a><a href="foodcort.html">食堂メニュー</a><a href="index.html#access">アクセス</a><a class="nav-coupon" href="coupon.html" aria-current="page">クーポン</a>
       </nav>
-      <div class="header-actions">
-        <div class="social-links" aria-label="公式SNS"><a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer" aria-label="公式X（新しいタブ）"><img src="assets/x.svg" width="128" height="128" alt="X" loading="lazy" decoding="async" fetchpriority="low"></a><a href="https://www.instagram.com/suehiro.golf" target="_blank" rel="noopener noreferrer" aria-label="公式Instagram（新しいタブ）"><img src="assets/instagram.png" width="128" height="128" alt="Instagram" loading="lazy" decoding="async" fetchpriority="low"></a></div>
-        <a class="header-coupon" href="coupon.html" aria-current="page">クーポン<span aria-hidden="true"> ↗</span></a>
-        <button class="menu-toggle" type="button" aria-controls="navigation" aria-expanded="false" hidden><span class="menu-lines" aria-hidden="true"></span><span>メニュー</span></button>
-      </div>
     </div>
   </header>
   <main id="main">
     <nav class="container breadcrumb" aria-label="パンくず"><a href="index.html">ホーム</a><span aria-hidden="true">/</span><span aria-current="page">WEBクーポン</span></nav>
-    <section class="section coupon-document">
+    <section class="section document-section coupon-document">
       <div class="container">
         <div class="section-heading"><div><p class="eyebrow">A LITTLE BONUS!</p><h1>WEBクーポン</h1></div><p class="heading-note">ビジター様限定</p></div>
         <p class="section-intro">受付時に、このクーポンをご提示ください。</p>
@@ -45,9 +45,9 @@
         <div class="coupon-conditions"><h2>ご利用にあたって</h2><p class="coupon-expiry">有効期限：2027年3月31日</p><ul><li>受付時にご提示ください。</li><li>薄暮・ジュニア・大学生にはご利用いただけません。</li><li>1枚につき2名様まで有効です。</li><li>プレー代のみの割引対象です。</li></ul></div>
       </div>
     </section>
-    <div class="container page-return"><a class="button button-white" href="index.html"><span aria-hidden="true">←</span>ホームに戻る</a></div>
+    <div class="container page-return"><a class="button button-muted" href="index.html"><span aria-hidden="true">←</span>ホームに戻る</a></div>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="index.html">SUEHIRO C.C.<span>また、ナイスな一日を。</span></a><div class="footer-links"><a href="index.html">ホーム</a><a href="course.html">コース紹介</a><a href="foodcort.html">末広食堂</a><a href="coupon.html">クーポン</a><a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer">公式X ↗<span class="sr-only">（新しいタブ）</span></a><a href="https://www.instagram.com/suehiro.golf" target="_blank" rel="noopener noreferrer">Instagram ↗<span class="sr-only">（新しいタブ）</span></a></div><small>© <span id="year">2026</span> 末広カントリークラブ</small></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="index.html">SUEHIRO C.C.<span>また、ナイスな一日を。</span></a><nav class="footer-links" aria-label="フッターメニュー"><a href="index.html">ホーム</a><a href="news.html">お知らせ</a><a href="course.html">コース紹介</a><a href="foodcort.html">末広食堂</a><a href="coupon.html" aria-current="page">クーポン</a><a href="https://x.com/suehiro_cc" target="_blank" rel="noopener noreferrer">公式X ↗<span class="sr-only">（新しいタブ）</span></a><a href="https://www.instagram.com/suehiro.golf" target="_blank" rel="noopener noreferrer">Instagram ↗<span class="sr-only">（新しいタブ）</span></a></nav><small>© <span id="year">2026</span> 末広カントリークラブ</small></div></footer>
   <dialog class="image-dialog" aria-labelledby="image-title">
     <div class="dialog-toolbar"><h2 id="image-title"></h2><div><button type="button" class="zoom-button" aria-pressed="false">拡大する</button><button type="button" class="dialog-close" autofocus>閉じる <span aria-hidden="true">×</span></button></div></div>
     <div class="dialog-stage" tabindex="0" aria-label="画像">

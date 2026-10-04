@@ -2,13 +2,21 @@ import { readFile, writeFile, access } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-export const LATEST_COUNT = 2;
+const LATEST_COUNT = 2;
+const SCROLL_THRESHOLD = 2;
 const siteDirectory = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const escapeHtml = value => String(value).replace(/[&<>"']/g, character => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
 })[character]);
 const isText = value => typeof value === "string" && value.trim().length > 0;
 const isAsset = value => /^assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_-]+\.(?:jpg|jpeg|png|webp|gif|pdf)$/.test(value);
+const isImage = value => isAsset(value) && !value.endsWith(".pdf");
+
+function parseDate(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null;
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value ? date : null;
+}
 
 function checkObject(value, keys, label) {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error(`${label}: オブジェクトで指定してください。`);
@@ -35,8 +43,7 @@ export function validateNews(data) {
       throw new Error(`${label}: idは重複しない半角英小文字・数字・ハイフンで指定してください。`);
     }
     ids.add(item.id);
-    const date = typeof item.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(item.date) ? new Date(`${item.date}T00:00:00Z`) : null;
-    if (!date || Number.isNaN(date.valueOf()) || date.toISOString().slice(0, 10) !== item.date) {
+    if (!parseDate(item.date)) {
       throw new Error(`${label}: dateは実在する日付をYYYY-MM-DDで指定してください。`);
     }
     if (!isText(item.title) || !Array.isArray(item.body) || !item.body.every(isText)) {
@@ -55,12 +62,19 @@ export function validateNews(data) {
     if (item.links !== undefined) {
       if (!Array.isArray(item.links)) throw new Error(`${label}: linksは配列で指定してください。`);
       for (const link of item.links) {
-        checkObject(link, ["text", "href", "imageTitle"], label);
+        checkObject(link, ["text", "href", "imageTitle", "width", "height"], label);
         if (!isText(link.text) || !isText(link.href) || (!isAsset(link.href) && !isHttps(link.href))) {
           throw new Error(`${label}: リンクはassets内の画像・PDF、またはhttps URLを指定してください。`);
         }
-        if (link.imageTitle !== undefined && (!isText(link.imageTitle) || !isAsset(link.href) || link.href.endsWith(".pdf"))) {
+        if (link.imageTitle !== undefined && (!isText(link.imageTitle) || !isImage(link.href))) {
           throw new Error(`${label}: imageTitleはassets内の画像リンクにのみ指定できます。`);
+        }
+        if (isImage(link.href)) {
+          if (![link.width, link.height].every(value => Number.isSafeInteger(value) && value > 0)) {
+            throw new Error(`${label}: 画像には元画像の幅widthと高さheightを正の整数（px）で指定してください。`);
+          }
+        } else if (link.width !== undefined || link.height !== undefined) {
+          throw new Error(`${label}: width・heightはassets内の画像にのみ指定できます。`);
         }
       }
     }
@@ -74,9 +88,12 @@ function renderItem(item, archive) {
   const category = item.category || (item.important ? "重要" : "");
   const title = archive ? escapeHtml(item.title) : `<a href="news.html#${id}">${escapeHtml(item.title)}</a>`;
   const links = (item.links || []).map(link => {
-    const image = link.imageTitle ? ` data-image-title="${escapeHtml(link.imageTitle)}"` : "";
+    if (isImage(link.href)) {
+      const title = escapeHtml(link.imageTitle || link.text);
+      return `<a class="news-image" href="${escapeHtml(link.href)}" data-image-title="${title}" aria-label="${title}を拡大"><img src="${escapeHtml(link.href)}" width="${link.width}" height="${link.height}" alt="${title}" loading="lazy" decoding="async" fetchpriority="low"><span class="image-action">${escapeHtml(link.text)}<span class="zoom-icon" aria-hidden="true"></span></span></a>`;
+    }
     const external = isHttps(link.href);
-    return `<a class="text-link" href="${escapeHtml(link.href)}"${image}${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(link.text)} <span aria-hidden="true">↗</span>${external ? '<span class="sr-only">（新しいタブ）</span>' : ""}</a>`;
+    return `<a class="text-link" href="${escapeHtml(link.href)}"${external ? ' target="_blank" rel="noopener noreferrer"' : ""}>${escapeHtml(link.text)} <span aria-hidden="true">↗</span>${external ? '<span class="sr-only">（新しいタブ）</span>' : ""}</a>`;
   });
   return [
     `<article class="news-item${item.important ? " news-important" : ""}" id="${id}" aria-labelledby="${id}-title">`,
@@ -93,7 +110,17 @@ export function renderNews(data) {
   // 同日の記事はデータの記載順を維持し、下書きはHTMLに含めない。
   const published = validateNews(data).filter(item => !item.draft).toSorted((a, b) => b.date.localeCompare(a.date));
   const empty = '<p class="news-empty">現在、お知らせはありません。</p>';
-  const latest = published.slice(0, LATEST_COUNT).map(item => renderItem(item, false)).join("\n") || empty;
+  // 重要記事を先頭に残し、公開記事の最新2件を重複なく追加する。
+  const featured = [
+    ...published.filter(item => item.important),
+    ...published.slice(0, LATEST_COUNT).filter(item => !item.important)
+  ];
+  const scrollable = featured.length > SCROLL_THRESHOLD;
+  const latest = [
+    `<div class="news-feed${scrollable ? ' news-feed-scroll' : ''}"${scrollable ? ' tabindex="0" role="region" aria-label="重要なお知らせと最新のお知らせ。上下にスクロールできます。"' : ''}>`,
+    (featured.map(item => renderItem(item, false)).join("\n") || empty).split("\n").map(line => `  ${line}`).join("\n"),
+    "</div>"
+  ].join("\n");
   const years = [...new Set(published.map(item => item.date.slice(0, 4)))];
   const archive = years.map((year, index) => {
     const items = published.filter(item => item.date.startsWith(year));

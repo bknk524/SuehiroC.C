@@ -1,0 +1,12 @@
+golf-green.png
+
+Source: Noto Emoji, Google
+https://github.com/googlefonts/noto-emoji/blob/main/2D/png/128/emoji_u26f3.png
+Retrieved: 2026-10-05
+Copyright 2013 Google LLC
+
+The PNG is included without modification. Noto Emoji image resources are
+distributed under the Apache License, Version 2.0, as documented at:
+https://github.com/googlefonts/noto-emoji#license
+
+The license text is included in noto-emoji-LICENSE.txt in this directory.
